@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SU HENG 苏珩 — AI Video & Image Creator</title>
+<meta name="description" content="苏珩 — 野生AI内容创作者。AI视频与图像作品集。曾经的VR内容设计师、广告制片、动画/绑定/灯光师。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23060606'/%3E%3Cpath fill='%23c9f22e' d='M3 3h10v3H6v1h7v6H3v-3h7V9H3z'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#060606; --panel:#0b0b0b; --panel2:#101010;
+  --line:#1c1c1c; --line2:#242424;
+  --lime:#c9f22e; --lime-dim:#8fb31a;
+  --purple:#7b3df0; --purple-dim:#4a2595;
+  --text:#f0f0f0; --muted:#8f8f8f; --muted2:#5c5c5c;
+  --display:'Arial Black','Helvetica Neue','Microsoft YaHei',Arial,sans-serif;
+  --mono:Consolas,'Courier New','Microsoft YaHei',monospace;
+  --body:'Helvetica Neue','Microsoft YaHei',Arial,sans-serif;
+  --sb:212px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden}
+::selection{background:var(--lime);color:#000}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ============ SIDEBAR ============ */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sb);background:var(--panel);
+  border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:100;padding:28px 22px 0}
+.logo{margin-bottom:42px}
+.logo svg{display:block}
+.logo .sub{font-family:var(--mono);font-size:10px;letter-spacing:4px;color:var(--muted2);margin-top:10px}
+.nav{display:flex;flex-direction:column;gap:6px}
+.nav a{font-family:var(--mono);font-size:12px;letter-spacing:1.5px;color:var(--muted);
+  padding:9px 8px;min-height:44px;display:flex;align-items:center;gap:8px;transition:color .2s,background .2s;position:relative}
+.nav a .idx{color:var(--muted2);font-size:10px}
+.nav a:hover{color:var(--text)}
+.nav a.active{color:var(--lime)}
+.nav a.active::before{content:'>';color:var(--lime);margin-right:2px}
+.nav a.active::after{content:'_';color:var(--lime);animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.follow{margin-top:auto;padding-top:24px;border-top:1px solid var(--line)}
+.follow .lbl{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--muted2);margin-bottom:14px}
+.follow .icons{display:flex;gap:14px;flex-wrap:wrap}
+.follow a{color:var(--muted);transition:color .2s;display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin:-8px}
+.follow a:hover{color:var(--lime)}
+.follow svg{width:17px;height:17px;fill:currentColor}
+.copyright{font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--muted2);margin:20px 0 14px;line-height:1.8}
+.pxwave{display:block;margin:0 -22px}
+
+/* ============ MAIN ============ */
+.main{margin-left:var(--sb);min-height:100vh}
+.topbar{display:flex;justify-content:space-between;align-items:center;
+  padding:16px 34px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--muted)}
+.topbar .l{display:flex;align-items:center;gap:10px}
+.topbar .sq{width:8px;height:8px;background:var(--lime)}
+.topbar .r{display:flex;align-items:center;gap:22px}
+.topbar .dots{letter-spacing:2px;color:var(--muted)}
+
+/* ============ HERO ============ */
+.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:30px;padding:64px 34px 54px;position:relative;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;justify-content:center}
+.hero h1{font-family:var(--display);font-size:clamp(46px,6.4vw,104px);line-height:.96;letter-spacing:-1px;text-transform:uppercase}
+.hero h1 .row1{color:var(--text);display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.hero h1 .row2{color:var(--lime)}
+.smiley{image-rendering:pixelated;width:.62em;height:.62em}
+.tag-cn{font-size:17px;color:var(--text);margin-top:30px;letter-spacing:2px}
+.tag-en{font-family:var(--mono);font-size:11px;color:var(--muted2);margin-top:10px;letter-spacing:1.5px}
+.dotline{border:none;border-top:2px dotted var(--line2);margin:34px 0 0;width:78%}
+.dotline.two{width:52%;margin-top:10px}
+.plus{color:var(--lime);font-size:18px;font-family:var(--mono);margin-top:14px}
+.cta-works{display:inline-flex;align-items:center;gap:12px;margin-top:36px;font-family:var(--mono);
+  font-size:13px;letter-spacing:3px;color:var(--lime);min-height:44px;width:fit-content}
+.cta-works .arr{transition:transform .25s}
+.cta-works:hover .arr{transform:translateX(6px)}
+.cta-works:hover{text-decoration:underline;text-underline-offset:6px}
+
+.hero-right{position:relative;display:flex;align-items:center;justify-content:center;min-height:480px}
+.hero-frame{position:relative;width:min(100%,420px);z-index:2}
+.hero-frame img{width:100%;aspect-ratio:4/4.6;object-fit:cover;filter:saturate(1.05)}
+.hero-frame::after{content:'';position:absolute;inset:0;border:1px solid var(--line2);pointer-events:none}
+.pxblob{position:absolute;image-rendering:pixelated;z-index:1}
+.pxblob.p1{top:-6px;right:6%;width:120px;height:120px;
+  background:
+   conic-gradient(from 0deg,transparent 0 100%);
+  background:none;}
+.ring{position:absolute;width:340px;height:340px;border-radius:50%;
+  border:2px dashed var(--lime-dim);left:-70px;top:6%;opacity:.65;z-index:1;
+  -webkit-mask:linear-gradient(115deg,#000 42%,transparent 43%);mask:linear-gradient(115deg,#000 42%,transparent 43%)}
+.crosshair{position:absolute;width:34px;height:34px;z-index:3}
+.crosshair::before,.crosshair::after{content:'';position:absolute;background:var(--lime)}
+.crosshair::before{left:50%;top:0;width:1px;height:100%}
+.crosshair::after{top:50%;left:0;height:1px;width:100%}
+.crosshair i{position:absolute;inset:11px;border:1px solid var(--lime);border-radius:50%}
+.ch1{left:-14px;bottom:22%}
+.window-card{position:absolute;right:-6px;bottom:-8px;z-index:4;width:250px;background:var(--panel2);
+  border:1px solid var(--line2);padding:16px 18px 14px}
+.window-card .bar{display:flex;align-items:center;gap:6px;margin-bottom:12px}
+.window-card .bar i{width:7px;height:7px;border-radius:50%;background:var(--line2)}
+.window-card .bar i:first-child{background:var(--purple)}
+.window-card .px{font-family:var(--display);font-size:30px;color:var(--lime);letter-spacing:1px}
+.window-card ul{list-style:none;margin:10px 0 12px}
+.window-card li{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;color:var(--muted);padding:3px 0}
+.window-card .based{font-family:var(--mono);font-size:9px;letter-spacing:1.6px;color:var(--muted2);border-top:1px solid var(--line);padding-top:10px}
+.pxarrow{position:absolute;top:-30px;right:14px;width:40px;height:40px;image-rendering:pixelated}
+
+/* ============ SECTION COMMON ============ */
+section.block{padding:56px 34px;border-top:1px solid var(--line)}
+.sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
+.sec-label{font-family:var(--mono);font-size:12px;letter-spacing:3px;color:var(--text);display:flex;align-items:center;gap:10px}
+.sec-label::before{content:'';width:9px;height:9px;background:var(--purple)}
+.sec-link{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--muted);display:inline-flex;align-items:center;gap:8px;min-height:44px}
+.sec-link:hover{color:var(--lime)}
+.sec-link .arr{transition:transform .25s}
+.sec-link:hover .arr{transform:translateX(5px)}
+
+/* ============ SELECTED WORKS ============ */
+.sel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.work-card{position:relative;overflow:hidden;background:var(--panel);aspect-ratio:3/3.4;cursor:pointer;border:1px solid var(--line)}
+.work-card img{width:100%;height:100%;object-fit:cover;filter:brightness(.82) saturate(.95);transition:filter .3s,transform .5s}
+.work-card:hover img{filter:brightness(1);transform:scale(1.04)}
+.work-card .meta{position:absolute;top:10px;left:10px;right:10px;font-family:var(--mono);font-size:9px;
+  letter-spacing:1.6px;color:#dcdcdc;line-height:1.7;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+.work-card .ttl{position:absolute;left:10px;right:10px;bottom:10px;font-family:var(--mono);font-size:11px;
+  letter-spacing:1px;color:var(--lime);opacity:0;transform:translateY(6px);transition:.25s;text-shadow:0 1px 6px rgba(0,0,0,.9)}
+.work-card:hover .ttl{opacity:1;transform:none}
+.work-card:hover{border-color:var(--lime-dim)}
+.work-card .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.work-card .play i{width:54px;height:54px;border:1px solid var(--lime);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45)}
+.work-card .play svg{width:16px;height:16px;fill:var(--lime);margin-left:3px}
+
+/* ============ STATS ============ */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:34px 30px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat .num{font-family:var(--display);font-size:44px;color:var(--lime);line-height:1}
+.stat .lbl{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;color:var(--muted2);margin-top:12px}
+
+/* ============ EXPERTISE ============ */
+.exp-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.exp-list{list-style:none}
+.exp-list li{font-family:var(--mono);font-size:13px;letter-spacing:2px;color:var(--muted);
+  padding:15px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;transition:color .2s,padding-left .2s}
+.exp-list li:hover{color:var(--lime);padding-left:8px}
+.exp-list li .n{color:var(--muted2);font-size:10px}
+.exp-cta .big{font-family:var(--display);font-size:clamp(28px,3vw,44px);line-height:1.15;text-transform:uppercase}
+.exp-cta .big em{font-style:normal;color:var(--lime)}
+.exp-cta .arrow{font-size:56px;color:var(--purple);line-height:1;display:inline-block;transition:transform .25s}
+.exp-cta a:hover .arrow{transform:translate(6px,-6px)}
+.exp-cta p{color:var(--muted);font-size:14px;margin-top:18px;line-height:1.9;max-width:420px}
+
+/* ============ ABOUT ============ */
+.about-grid{display:grid;grid-template-columns:300px 1fr;gap:44px;align-items:start}
+.about-photo{position:relative}
+.about-photo img{width:100%;aspect-ratio:1;object-fit:cover;filter:grayscale(.25) contrast(1.05)}
+.about-photo::after{content:'';position:absolute;inset:0;border:1px solid var(--line2)}
+.about-photo .tag{position:absolute;left:-1px;bottom:-1px;background:var(--lime);color:#000;
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;padding:7px 12px}
+.about-text h3{font-family:var(--display);font-size:clamp(26px,3vw,40px);text-transform:uppercase;line-height:1.15}
+.about-text h3 em{font-style:normal;color:var(--lime)}
+.about-text .lead{margin-top:22px;font-size:15.5px;line-height:2;color:#cfcfcf;max-width:640px}
+.about-text .lead b{color:var(--lime);font-weight:600}
+.about-text .en{font-family:var(--mono);font-size:11px;color:var(--muted2);margin-top:16px;letter-spacing:1px;line-height:1.9}
+.past-roles{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.past-roles span{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;color:var(--muted);
+  border:1px solid var(--line2);padding:8px 14px;transition:.2s}
+.past-roles span:hover{color:var(--purple);border-color:var(--purple-dim)}
+
+/* ============ WORKS GALLERY ============ */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.filters button{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--muted);background:none;
+  border:1px solid var(--line2);padding:10px 16px;min-height:44px;cursor:pointer;transition:.2s}
+.filters button:hover{color:var(--text);border-color:var(--muted2)}
+.filters button.on{color:#000;background:var(--lime);border-color:var(--lime)}
+.film-feature{position:relative;margin-bottom:26px;border:1px solid var(--line);overflow:hidden;cursor:pointer;background:#000}
+.film-feature img{width:100%;aspect-ratio:21/9;object-fit:cover;filter:brightness(.75);transition:filter .3s}
+.film-feature:hover img{filter:brightness(.95)}
+.film-feature .info{position:absolute;left:24px;bottom:22px;z-index:2}
+.film-feature .info .cat{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;color:var(--lime)}
+.film-feature .info .t{font-family:var(--display);font-size:clamp(24px,3vw,42px);text-transform:uppercase;margin-top:8px}
+.film-feature .info .d{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:1px}
+.film-feature .playb{position:absolute;right:26px;bottom:22px;width:66px;height:66px;border:1px solid var(--lime);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);transition:.25s;z-index:2}
+.film-feature:hover .playb{background:var(--lime)}
+.film-feature .playb svg{width:20px;height:20px;fill:var(--lime);margin-left:4px;transition:.25s}
+.film-feature:hover .playb svg{fill:#000}
+.gallery{columns:3;column-gap:14px}
+.gallery .g-item{break-inside:avoid;margin-bottom:14px;position:relative;overflow:hidden;cursor:pointer;border:1px solid var(--line);background:var(--panel)}
+.gallery .g-item img{width:100%;filter:brightness(.85) saturate(.96);transition:filter .3s,transform .5s}
+.gallery .g-item:hover img{filter:brightness(1.02);transform:scale(1.03)}
+.gallery .g-item:hover{border-color:var(--lime-dim)}
+.gallery .g-item .cap{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;
+  background:linear-gradient(transparent,rgba(0,0,0,.88));font-family:var(--mono);font-size:10px;letter-spacing:1.4px;
+  color:#e8e8e8;opacity:0;transform:translateY(6px);transition:.25s;display:flex;justify-content:space-between;gap:8px}
+.gallery .g-item:hover .cap{opacity:1;transform:none}
+.gallery .g-item .cap em{font-style:normal;color:var(--lime)}
+.gallery .g-item.hide{display:none}
+
+/* ============ CONTACT ============ */
+.contact-inner{text-align:left;padding:30px 0 10px}
+.contact-inner .big{font-family:var(--display);font-size:clamp(34px,5vw,72px);line-height:1.05;text-transform:uppercase}
+.contact-inner .big em{font-style:normal;color:var(--lime)}
+.contact-inner .sub{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:2px;margin-top:22px;line-height:2}
+.contact-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.contact-links a{font-family:var(--mono);font-size:12px;letter-spacing:2px;border:1px solid var(--line2);
+  padding:14px 22px;min-height:44px;display:inline-flex;align-items:center;gap:10px;transition:.2s;color:var(--muted)}
+.contact-links a:hover{color:#000;background:var(--lime);border-color:var(--lime)}
+.contact-links a svg{width:15px;height:15px;fill:currentColor}
+footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--muted2);flex-wrap:wrap;gap:10px}
+
+/* ============ LIGHTBOX ============ */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:200;display:none;align-items:center;justify-content:center;padding:4vh 4vw}
+.lb.open{display:flex}
+.lb img,.lb video{max-width:92vw;max-height:88vh;box-shadow:0 0 0 1px var(--line2)}
+.lb .x{position:absolute;top:18px;right:22px;font-family:var(--mono);font-size:13px;letter-spacing:2px;
+  color:var(--muted);background:none;border:1px solid var(--line2);padding:10px 16px;cursor:pointer;min-height:44px}
+.lb .x:hover{color:var(--lime);border-color:var(--lime)}
+.lb .cap-b{position:absolute;bottom:16px;left:0;right:0;text-align:center;font-family:var(--mono);
+  font-size:11px;letter-spacing:2px;color:var(--muted)}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1060px){
+  .sel-grid{grid-template-columns:repeat(2,1fr)}
+  .gallery{columns:2}
+  .exp-wrap{grid-template-columns:1fr}
+}
+@media (max-width:860px){
+  :root{--sb:0px}
+  .sidebar{position:static;width:100%;flex-direction:row;flex-wrap:wrap;align-items:center;
+    padding:14px 18px;gap:14px;border-right:none;border-bottom:1px solid var(--line)}
+  .logo{margin:0}
+  .logo .sub{display:none}
+  .nav{flex-direction:row;flex-wrap:wrap;gap:2px}
+  .nav a{padding:8px 8px;min-height:44px;font-size:11px}
+  .tag-en{overflow-wrap:anywhere;letter-spacing:1px}
+  .follow,.copyright,.pxwave{display:none}
+  .main{margin-left:0}
+  .hero{grid-template-columns:1fr;padding:44px 22px}
+  .hero-right{min-height:0;margin-top:14px}
+  .window-card{right:0;bottom:-14px;width:220px}
+  section.block{padding:44px 22px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat{border-bottom:1px solid var(--line)}
+  .about-grid{grid-template-columns:1fr}
+  .about-photo{max-width:280px}
+  .topbar{padding:14px 22px}
+  .topbar .loc{display:none}
+}
+@media (max-width:520px){
+  .sel-grid{grid-template-columns:1fr 1fr}
+  .gallery{columns:1}
+  .film-feature img{aspect-ratio:16/9}
+  .stat .num{font-size:34px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar">
+  <div class="logo">
+    <!-- pixel SH logo -->
+    <svg width="88" height="56" viewBox="0 0 110 70" style="image-rendering:pixelated" aria-label="SH">
+      <g fill="#c9f22e">
+        <!-- S -->
+        <rect x="10" y="0" width="40" height="10"/><rect x="0" y="10" width="10" height="20"/>
+        <rect x="10" y="30" width="30" height="10"/><rect x="40" y="40" width="10" height="20"/>
+        <rect x="0" y="60" width="40" height="10"/>
+        <!-- H -->
+        <rect x="60" y="0" width="10" height="70"/><rect x="100" y="0" width="10" height="70"/>
+        <rect x="70" y="30" width="30" height="10"/>
+      </g>
+    </svg>
+    <div class="sub">PORTFOLIO</div>
+  </div>
+
+  <nav class="nav" id="nav">
+    <a href="#home" class="active">HOME</a>
+    <a href="#about"><span class="idx">01.</span>ABOUT</a>
+    <a href="#works"><span class="idx">02.</span>WORKS</a>
+    <a href="#services"><span class="idx">03.</span>SERVICES</a>
+    <a href="#contact"><span class="idx">04.</span>CONTACT</a>
+  </nav>
+
+  <div class="follow">
+    <div class="lbl">FOLLOW ME</div>
+    <div class="icons">
+      <a href="#" title="Bilibili" aria-label="Bilibili"><svg viewBox="0 0 24 24"><path d="M17.8 4.6l1.5-1.5a.75.75 0 011 1L19 5.4c1.6.3 2.5 1.2 2.5 3v8c0 2.2-1.8 3.6-4 3.6h-11c-2.2 0-4-1.4-4-3.6v-8c0-1.8.9-2.7 2.5-3L3.7 4a.75.75 0 011-1l1.6 1.5c.4-.1 1-.1 1.7-.1h8c.7 0 1.3 0 1.8.2zM8 10a1.2 1.2 0 100 2.4A1.2 1.2 0 008 10zm8 0a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/></svg></a>
+      <a href="#" title="抖音" aria-label="抖音"><svg viewBox="0 0 24 24"><path d="M16.6 3c.4 2 1.8 3.4 3.9 3.6v3.1c-1.5 0-2.9-.5-3.9-1.2v6.3c0 3.6-2.6 6.2-6 6.2-3.3 0-6-2.6-6-6 0-3.6 3-6.2 6.6-6v3.2c-1.9-.1-3.4 1.2-3.4 2.9 0 1.6 1.3 2.8 2.9 2.8 1.7 0 2.9-1.3 2.9-3.1V3h3z"/></svg></a>
+      <a href="#" title="微信" aria-label="微信"><svg viewBox="0 0 24 24"><path d="M9.5 4C5.9 4 3 6.5 3 9.6c0 1.8 1 3.3 2.5 4.3l-.6 2 2.2-1.1c.5.1 1 .2 1.5.2.2 0 .4 0 .6 0-.2-.6-.3-1.2-.3-1.8 0-3 2.9-5.4 6.4-5.4h.5C15.3 5.6 12.7 4 9.5 4zM7.4 7.2a.9.9 0 110 1.8.9.9 0 010-1.8zm4.2 0a.9.9 0 110 1.8.9.9 0 010-1.8zM15.4 9.5c-3 0-5.4 2-5.4 4.4s2.4 4.4 5.4 4.4c.5 0 1-.1 1.5-.2l1.9 1-.5-1.7c1.4-.8 2.3-2.1 2.3-3.5 0-2.4-2.4-4.4-5.2-4.4zm-1.8 2.4a.75.75 0 110 1.5.75.75 0 010-1.5zm3.6 0a.75.75 0 110 1.5.75.75 0 010-1.5z"/></svg></a>
+      <a href="#" title="Email" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1zm8 7.4L5 7v10h14V7l-7 5.4z"/></svg></a>
+    </div>
+  </div>
+
+  <div class="copyright">© 2026 SU HENG<br>ALL RIGHTS RESERVED.</div>
+
+  <!-- purple pixel wave -->
+  <svg class="pxwave" width="212" height="46" viewBox="0 0 212 46" preserveAspectRatio="none" style="image-rendering:pixelated">
+    <g fill="#7b3df0">
+      <rect x="0" y="30" width="8" height="8"/><rect x="8" y="22" width="8" height="8"/><rect x="16" y="30" width="8" height="8"/>
+      <rect x="24" y="14" width="8" height="8"/><rect x="32" y="22" width="8" height="8"/><rect x="40" y="6" width="8" height="8"/>
+      <rect x="48" y="14" width="8" height="8"/><rect x="56" y="30" width="8" height="8"/><rect x="64" y="22" width="8" height="8"/>
+      <rect x="72" y="6" width="8" height="8"/><rect x="80" y="14" width="8" height="8"/><rect x="88" y="30" width="8" height="8"/>
+      <rect x="96" y="22" width="8" height="8"/><rect x="104" y="6" width="8" height="8"/><rect x="112" y="14" width="8" height="8"/>
+      <rect x="120" y="30" width="8" height="8"/><rect x="128" y="14" width="8" height="8"/><rect x="136" y="22" width="8" height="8"/>
+      <rect x="144" y="6" width="8" height="8"/><rect x="152" y="22" width="8" height="8"/><rect x="160" y="30" width="8" height="8"/>
+      <rect x="168" y="14" width="8" height="8"/><rect x="176" y="22" width="8" height="8"/><rect x="184" y="30" width="8" height="8"/>
+      <rect x="192" y="14" width="8" height="8"/><rect x="200" y="22" width="8" height="8"/>
+      <g opacity=".45">
+        <rect x="0" y="38" width="8" height="8"/><rect x="16" y="38" width="8" height="8"/><rect x="24" y="30" width="8" height="8"/>
+        <rect x="48" y="30" width="8" height="8"/><rect x="56" y="38" width="8" height="8"/><rect x="72" y="14" width="8" height="8"/>
+        <rect x="96" y="30" width="8" height="8"/><rect x="112" y="22" width="8" height="8"/><rect x="136" y="30" width="8" height="8"/>
+        <rect x="152" y="14" width="8" height="8"/><rect x="176" y="30" width="8" height="8"/><rect x="200" y="30" width="8" height="8"/>
+      </g>
+    </g>
+  </svg>
+</aside>
+
+<!-- ================= MAIN ================= -->
+<div class="main">
+
+  <div class="topbar">
+    <div class="l"><span class="sq"></span>AI VIDEO &amp; IMAGE CREATOR</div>
+    <div class="r">
+      <span class="loc">CHINA</span>
+      <span id="clock">--:--</span>
+      <span class="dots">⋮</span>
+    </div>
+  </div>
+
+  <!-- ============ HOME / HERO ============ -->
+  <section id="home">
+    <div class="hero">
+      <div class="hero-left">
+        <h1>
+          <span class="row1">AI VIDEO
+            <!-- purple pixel smiley -->
+            <svg class="smiley" viewBox="0 0 80 80" style="image-rendering:pixelated" aria-hidden="true">
+              <g fill="#7b3df0">
+                <rect x="10" y="0" width="20" height="20"/><rect x="50" y="0" width="20" height="20"/>
+                <rect x="10" y="20" width="20" height="10"/><rect x="50" y="20" width="20" height="10"/>
+                <rect x="0" y="50" width="10" height="10"/><rect x="70" y="50" width="10" height="10"/>
+                <rect x="10" y="60" width="10" height="10"/><rect x="60" y="60" width="10" height="10"/>
+                <rect x="20" y="70" width="40" height="10"/>
+              </g>
+            </svg>
+          </span>
+          <span class="row2">CREATOR</span>
+        </h1>
+        <p class="tag-cn">用 AI 视觉语言，创造无限可能。</p>
+        <p class="tag-en">Using AI visual language to create infinite possibilities.</p>
+        <hr class="dotline"><hr class="dotline two">
+        <div class="plus">+</div>
+        <a class="cta-works" href="#works">VIEW MY WORKS <span class="arr">→</span></a>
+      </div>
+
+      <div class="hero-right">
+        <div class="ring"></div>
+        <div class="crosshair ch1"><i></i></div>
+        <div class="hero-frame">
+          <img src="assets/portrait.webp" alt="苏珩 — AI Creator">
+        </div>
+        <div class="window-card">
+          <div class="bar"><i></i><i></i><i></i></div>
+          <div class="px">SU HENG</div>
+          <ul>
+            <li>AI VIDEO &amp; IMAGE CREATOR</li>
+            <li>FORMER VR DESIGNER</li>
+            <li>FILM PRODUCER</li>
+            <li>ANIMATION / LIGHTING</li>
+          </ul>
+          <div class="based">BASED IN CHINA</div>
+          <svg class="pxarrow" viewBox="0 0 40 40" style="image-rendering:pixelated" aria-hidden="true">
+            <g fill="#7b3df0">
+              <rect x="30" y="0" width="10" height="10"/><rect x="20" y="10" width="10" height="10"/>
+              <rect x="30" y="10" width="10" height="10"/><rect x="10" y="20" width="10" height="10"/>
+              <rect x="30" y="20" width="10" height="10"/><rect x="0" y="30" width="10" height="10"/>
+              <rect x="30" y="30" width="10" height="10"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- SELECTED WORKS -->
+    <div style="padding:0 34px 54px">
+      <div class="sec-head">
+        <div class="sec-label">SELECTED WORKS</div>
+        <a class="sec-link" href="#works">VIEW ALL WORKS <span class="arr">→</span></a>
+      </div>
+      <div class="sel-grid">
+        <div class="work-card" data-video="assets/huozhong.mp4" data-title="火种 · THE SPARK — AI SHORT FILM">
+          <img src="assets/huozhong_poster.webp" alt="火种">
+          <div class="meta">AI SHORT FILM<br>2026</div>
+          <div class="play"><i><svg viewBox="0 0 24 24"><path d="M6 3l14 9-14 9z"/></svg></i></div>
+          <div class="ttl">火种 · THE SPARK</div>
+        </div>
+        <div class="work-card" data-img="assets/work03.webp" data-title="青17 · 角色设定集 — CHARACTER SHEET">
+          <img src="assets/work03.webp" alt="青17角色设定集" loading="lazy">
+          <div class="meta">CHARACTER SHEET<br>2026</div>
+          <div class="ttl">青17 · 角色设定集</div>
+        </div>
+        <div class="work-card" data-img="assets/work08.webp" data-title="黑白肖像 — B&amp;W PORTRAIT">
+          <img src="assets/work08.webp" alt="黑白肖像" loading="lazy">
+          <div class="meta">B&amp;W PORTRAIT<br>2026</div>
+          <div class="ttl">黑白肖像</div>
+        </div>
+        <div class="work-card" data-img="assets/work05.webp" data-title="义体人 · 角色设定 — CYBORG CHARACTER">
+          <img src="assets/work05.webp" alt="义体人角色设定" loading="lazy">
+          <div class="meta">CHARACTER DESIGN<br>2026</div>
+          <div class="ttl">义体人 · 角色设定</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat"><div class="num">01</div><div class="lbl">AI SHORT FILM</div></div>
+      <div class="stat"><div class="num">13</div><div class="lbl">AI IMAGE WORKS</div></div>
+      <div class="stat"><div class="num">03</div><div class="lbl">FORMER ROLES</div></div>
+      <div class="stat"><div class="num">∞</div><div class="lbl">CREATIVE POSSIBILITIES</div></div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="block" id="about">
+    <div class="sec-head"><div class="sec-label">ABOUT ME</div></div>
+    <div class="about-grid">
+      <div class="about-photo">
+        <img src="assets/portrait.webp" alt="苏珩" loading="lazy">
+        <div class="tag">SU HENG / 苏珩</div>
+      </div>
+      <div class="about-text">
+        <h3>一个野生 <em>AI 内容创作者</em></h3>
+        <p class="lead">
+          曾经的 <b>VR 内容设计师</b>、<b>广告制片</b>、<b>动画 / 绑定 / 灯光师</b>。
+          在传统视觉工业的流水线上打磨多年，如今把全部经验倒进 AI 的熔炉——
+          写提示词像写分镜，调参数像调灯光。作品横跨 AI 短片、角色设定与写实人像，
+          正在连载科幻短片与原创剧集的视觉开发。
+        </p>
+        <p class="en">A self-taught AI content creator. Formerly a VR content designer, film producer, and animation/rigging/lighting artist — now channeling years of visual-industry craft into AI filmmaking and image generation.</p>
+        <div class="past-roles">
+          <span>VR CONTENT DESIGN</span>
+          <span>FILM PRODUCTION</span>
+          <span>ANIMATION</span>
+          <span>RIGGING</span>
+          <span>LIGHTING</span>
+          <span>PROMPT ENGINEERING</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORKS ============ -->
+  <section class="block" id="works">
+    <div class="sec-head"><div class="sec-label">ALL WORKS</div></div>
+
+    <div class="filters" id="filters">
+      <button class="on" data-f="all">ALL</button>
+      <button data-f="film">AI FILM</button>
+      <button data-f="character">CHARACTER</button>
+      <button data-f="portrait">PORTRAIT</button>
+      <button data-f="fashion">FASHION</button>
+    </div>
+
+    <!-- featured film -->
+    <div class="film-feature" data-video="assets/huozhong.mp4" data-title="火种 · THE SPARK — AI SHORT FILM" data-cat="film">
+      <img src="assets/huozhong_poster.webp" alt="火种">
+      <div class="info">
+        <div class="cat">■ AI SHORT FILM · 2026 · 4'58"</div>
+        <div class="t">火种 · THE SPARK</div>
+        <div class="d">AI 科幻短片 — 太空站 / 全息 / 人性余温</div>
+      </div>
+      <div class="playb"><svg viewBox="0 0 24 24"><path d="M6 3l14 9-14 9z"/></svg></div>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <div class="g-item" data-cat="character" data-img="assets/work03.webp" data-title="青17 · 角色设定集">
+        <img src="assets/work03.webp" alt="青17角色设定集" loading="lazy">
+        <div class="cap"><span>青17 · 角色设定集</span><em>CHARACTER / 2026</em></div>
+      </div>
+      <div class="g-item" data-cat="portrait" data-img="assets/work01.webp" data-title="凝视">
+        <img src="assets/work01.webp" alt="凝视" loading="lazy">
+        <div class="cap"><span>凝视</span><em>PORTRAIT / 2026</em></div>
+      </div>
+      <div class="g-item" data-cat="character" data-img="assets/work02.webp" data-title="角色设定 · 壹">
+        <img src="assets/work02.webp" alt="角色设定壹" loading="lazy">
+        <div class="cap"><span>角色设定 · 壹</span><em>CHARACTER / 2026</em></div>
+      </div>
+      <div class="g-item" data-cat="portrait" data-img="assets/work08.webp" data-title="黑白肖像">
+        <img src="assets/work08.webp" alt="黑白肖像" loading="lazy">
+        <div class="cap"><span>黑白肖像</span><em>PORTRAIT / 2026</em></div>
+      </div>
+      <div class="g-item" data-cat="character" data-img="assets/work05.webp" data-title="义体人 · 角色设定">
+        <img src="assets/work05.webp" alt="义体人" loading="lazy">
+        <div class="cap"><span>义体人 · 角色设定</span><em>CHARACTER / 2026</em></div>
+      </div>
+      <div class="g-item" data-cat="portrait" data-img="assets/work07.webp" data-title="花田">
+        <img src="assets/work07.webp" alt="花田" loading="lazy">
+        <div class="cap"><span>花田</span><em>PORTRAIT / 2026</em></div>
+      </div>
+      <div class="g-item" data-cat="character" data-img="assets/work04.webp" data-title="角色设定 · 贰">
+        <img src="assets/work04.webp" alt="角色设定贰" loading="lazy">
+        <div class="cap"><span>角色设定 · 贰</span><em>CHARACTER / 2026</em></div>
+      </div>
+      <div class="g-item" data-cat="fashion" data-img="assets/work09.webp" data-title="时装设定 · 壹">
+        <img src="assets/work09.webp" alt="时装设定壹" loading="lazy">
+        <div class="cap"><span>时装设定 · 壹</span><em>FASHION / 2026</em></div>
+      </div>
+      <div class="g-item" data-cat="portrait" data-img="assets/work10.webp" data-title="窗">
+        <img src="assets/work10.webp" alt="窗" loading="lazy">
+        <div class="cap"><span>窗</span><em>PORTRAIT / 2026</em></div>
+      </div>
+      <div class="g-item" data-cat="character" data-img="assets/work06.webp" data-title="角色设定 · 叁">
+        <img src="assets/work06.webp" alt="角色设定叁" loading="lazy">
+        <div class="cap"><span>角色设定 · 叁</span><em>CHARACTER / 2026</em></div>
+      </div>
+      <div class="g-item" data-cat="portrait" data-img="assets/work11.webp" data-title="午后">
+        <img src="assets/work11.webp" alt="午后" loading="lazy">
+        <div class="cap"><span>午后</span><em>PORTRAIT / 2026</em></div>
+      </div>
+      <div class="g-item" data-cat="fashion" data-img="assets/work12.webp" data-title="时装设定 · 贰">
+        <img src="assets/work12.webp" alt="时装设定贰" loading="lazy">
+        <div class="cap"><span>时装设定 · 贰</span><em>FASHION / 2026</em></div>
+      </div>
+      <div class="g-item" data-cat="portrait" data-img="assets/work13.webp" data-title="肖像">
+        <img src="assets/work13.webp" alt="肖像" loading="lazy">
+        <div class="cap"><span>肖像</span><em>PORTRAIT / 2026</em></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES / EXPERTISE ============ -->
+  <section class="block" id="services">
+    <div class="sec-head"><div class="sec-label">EXPERTISE</div></div>
+    <div class="exp-wrap">
+      <ul class="exp-list">
+        <li>AI VIDEO GENERATION <span class="n">/ 01</span></li>
+        <li>AI IMAGE GENERATION <span class="n">/ 02</span></li>
+        <li>PROMPT ENGINEERING <span class="n">/ 03</span></li>
+        <li>CHARACTER &amp; WORLD DESIGN <span class="n">/ 04</span></li>
+        <li>VR CONTENT DESIGN <span class="n">/ 05</span></li>
+        <li>ANIMATION &amp; LIGHTING <span class="n">/ 06</span></li>
+        <li>FILM PRODUCTION <span class="n">/ 07</span></li>
+      </ul>
+      <div class="exp-cta">
+        <div class="big">Let's create<br><em>something amazing!</em></div>
+        <a href="#contact" style="display:inline-block;margin-top:14px"><span class="arrow">↗</span></a>
+        <p>从一句提示词到一部短片——AI 视频、AI 图像、角色与世界观视觉开发。
+        有想法？有项目？欢迎来聊。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="block" id="contact">
+    <div class="sec-head"><div class="sec-label">CONTACT</div></div>
+    <div class="contact-inner">
+      <div class="big">Got an idea?<br><em>Let's talk.</em></div>
+      <p class="sub">合作 / 约稿 / 交流 —— 随时找到我。<br>COLLABORATION · COMMISSION · JUST SAY HI</p>
+      <div class="contact-links">
+        <a href="#"><svg viewBox="0 0 24 24"><path d="M9.5 4C5.9 4 3 6.5 3 9.6c0 1.8 1 3.3 2.5 4.3l-.6 2 2.2-1.1c.5.1 1 .2 1.5.2.2 0 .4 0 .6 0-.2-.6-.3-1.2-.3-1.8 0-3 2.9-5.4 6.4-5.4h.5C15.3 5.6 12.7 4 9.5 4zM7.4 7.2a.9.9 0 110 1.8.9.9 0 010-1.8zm4.2 0a.9.9 0 110 1.8.9.9 0 010-1.8zM15.4 9.5c-3 0-5.4 2-5.4 4.4s2.4 4.4 5.4 4.4c.5 0 1-.1 1.5-.2l1.9 1-.5-1.7c1.4-.8 2.3-2.1 2.3-3.5 0-2.4-2.4-4.4-5.2-4.4z"/></svg>WECHAT</a>
+        <a href="#"><svg viewBox="0 0 24 24"><path d="M17.8 4.6l1.5-1.5a.75.75 0 011 1L19 5.4c1.6.3 2.5 1.2 2.5 3v8c0 2.2-1.8 3.6-4 3.6h-11c-2.2 0-4-1.4-4-3.6v-8c0-1.8.9-2.7 2.5-3L3.7 4a.75.75 0 011-1l1.6 1.5c.4-.1 1-.1 1.7-.1h8c.7 0 1.3 0 1.8.2zM8 10a1.2 1.2 0 100 2.4A1.2 1.2 0 008 10zm8 0a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/></svg>BILIBILI</a>
+        <a href="#"><svg viewBox="0 0 24 24"><path d="M16.6 3c.4 2 1.8 3.4 3.9 3.6v3.1c-1.5 0-2.9-.5-3.9-1.2v6.3c0 3.6-2.6 6.2-6 6.2-3.3 0-6-2.6-6-6 0-3.6 3-6.2 6.6-6v3.2c-1.9-.1-3.4 1.2-3.4 2.9 0 1.6 1.3 2.8 2.9 2.8 1.7 0 2.9-1.3 2.9-3.1V3h3z"/></svg>DOUYIN</a>
+        <a href="#"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1zm8 7.4L5 7v10h14V7l-7 5.4z"/></svg>EMAIL</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 SU HENG · 苏珩</span>
+    <span>DESIGNED &amp; BUILT WITH AI</span>
+  </footer>
+</div>
+
+<!-- ================= LIGHTBOX ================= -->
+<div class="lb" id="lb">
+  <button class="x" id="lbClose">CLOSE ✕</button>
+  <div id="lbBody" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%"></div>
+  <div class="cap-b" id="lbCap"></div>
+</div>
+
+<script>
+// clock
+function tick(){
+  var d=new Date(),p=function(n){return (n<10?'0':'')+n};
+  document.getElementById('clock').textContent=p(d.getHours())+':'+p(d.getMinutes());
+}
+tick();setInterval(tick,10000);
+
+// nav active state
+var links=document.querySelectorAll('#nav a');
+var secs=['home','about','works','services','contact'].map(function(id){return document.getElementById(id)});
+function onScroll(){
+  var y=window.scrollY+120,cur=0;
+  secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i});
+  links.forEach(function(a,i){a.classList.toggle('active',i===cur)});
+}
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+// lightbox
+var lb=document.getElementById('lb'),lbBody=document.getElementById('lbBody'),lbCap=document.getElementById('lbCap');
+function openLb(html,cap){lbBody.innerHTML=html;lbCap.textContent=cap||'';lb.classList.add('open');document.body.style.overflow='hidden'}
+function closeLb(){lb.classList.remove('open');lbBody.innerHTML='';document.body.style.overflow=''}
+document.getElementById('lbClose').addEventListener('click',closeLb);
+lb.addEventListener('click',function(e){if(e.target===lb)closeLb()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb()});
+
+document.querySelectorAll('[data-img]').forEach(function(el){
+  el.addEventListener('click',function(){
+    openLb('<img src="'+el.dataset.img+'" alt="">',el.dataset.title||'');
+  });
+});
+document.querySelectorAll('[data-video]').forEach(function(el){
+  el.addEventListener('click',function(){
+    openLb('<video src="'+el.dataset.video+'" controls autoplay playsinline style="width:min(92vw,1100px)"></video>',el.dataset.title||'');
+  });
+});
+
+// filters
+document.getElementById('filters').addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('#filters button').forEach(function(x){x.classList.remove('on')});
+  b.classList.add('on');
+  var f=b.dataset.f;
+  document.querySelectorAll('.g-item,.film-feature').forEach(function(it){
+    it.classList.toggle('hide',f!=='all'&&it.dataset.cat!==f);
+  });
+});
+</script>
+</body>
+</html>
