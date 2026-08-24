@@ -202,11 +202,15 @@ section.block{padding:56px 34px;border-top:1px solid var(--line)}
 .contact-inner .big{font-family:var(--display);font-size:clamp(34px,5vw,72px);line-height:1.05;text-transform:uppercase}
 .contact-inner .big em{font-style:normal;color:var(--lime)}
 .contact-inner .sub{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:2px;margin-top:22px;line-height:2}
-.contact-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
-.contact-links a{font-family:var(--mono);font-size:12px;letter-spacing:2px;border:1px solid var(--line2);
-  padding:14px 22px;min-height:44px;display:inline-flex;align-items:center;gap:10px;transition:.2s;color:var(--muted)}
-.contact-links a:hover{color:#000;background:var(--lime);border-color:var(--lime)}
-.contact-links a svg{width:15px;height:15px;fill:currentColor}
+.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px;max-width:960px}
+.c-card{background:var(--panel);border:1px solid var(--line2);padding:18px;display:flex;flex-direction:column;gap:12px;min-height:300px;cursor:pointer;transition:border-color .2s}
+.c-card:hover{border-color:var(--lime-dim)}
+.c-card .c-top{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--lime);display:flex;align-items:center;gap:8px}
+.c-card .c-top svg{width:14px;height:14px;fill:var(--lime)}
+.c-card .c-id{font-family:var(--mono);font-size:13px;color:var(--text);letter-spacing:.5px;overflow-wrap:anywhere}
+.c-card img{width:100%;max-width:176px;border:1px solid var(--line);background:#fff}
+.c-card .c-hint{font-family:var(--mono);font-size:9px;letter-spacing:1.4px;color:var(--muted2);margin-top:auto}
+.c-card.c-link{color:inherit;text-decoration:none}
 footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-content:space-between;
   font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--muted2);flex-wrap:wrap;gap:10px}
 
@@ -225,6 +229,7 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
   .sel-grid{grid-template-columns:repeat(2,1fr)}
   .gallery{columns:2}
   .exp-wrap{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:860px){
   :root{--sb:0px}
@@ -253,6 +258,8 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
   .nav a .idx{display:none}
   .nav a{font-size:11px;padding:8px 7px}
   .sel-grid{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .c-card{min-height:0}
   .gallery{columns:1}
   .film-feature img{aspect-ratio:16/9}
   .stat .num{font-size:34px}
@@ -294,10 +301,10 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
   <div class="follow">
     <div class="lbl">FOLLOW ME</div>
     <div class="icons">
-      <a href="#" title="Bilibili" aria-label="Bilibili"><svg viewBox="0 0 24 24"><path d="M17.8 4.6l1.5-1.5a.75.75 0 011 1L19 5.4c1.6.3 2.5 1.2 2.5 3v8c0 2.2-1.8 3.6-4 3.6h-11c-2.2 0-4-1.4-4-3.6v-8c0-1.8.9-2.7 2.5-3L3.7 4a.75.75 0 011-1l1.6 1.5c.4-.1 1-.1 1.7-.1h8c.7 0 1.3 0 1.8.2zM8 10a1.2 1.2 0 100 2.4A1.2 1.2 0 008 10zm8 0a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/></svg></a>
-      <a href="#" title="抖音" aria-label="抖音"><svg viewBox="0 0 24 24"><path d="M16.6 3c.4 2 1.8 3.4 3.9 3.6v3.1c-1.5 0-2.9-.5-3.9-1.2v6.3c0 3.6-2.6 6.2-6 6.2-3.3 0-6-2.6-6-6 0-3.6 3-6.2 6.6-6v3.2c-1.9-.1-3.4 1.2-3.4 2.9 0 1.6 1.3 2.8 2.9 2.8 1.7 0 2.9-1.3 2.9-3.1V3h3z"/></svg></a>
-      <a href="#" title="微信" aria-label="微信"><svg viewBox="0 0 24 24"><path d="M9.5 4C5.9 4 3 6.5 3 9.6c0 1.8 1 3.3 2.5 4.3l-.6 2 2.2-1.1c.5.1 1 .2 1.5.2.2 0 .4 0 .6 0-.2-.6-.3-1.2-.3-1.8 0-3 2.9-5.4 6.4-5.4h.5C15.3 5.6 12.7 4 9.5 4zM7.4 7.2a.9.9 0 110 1.8.9.9 0 010-1.8zm4.2 0a.9.9 0 110 1.8.9.9 0 010-1.8zM15.4 9.5c-3 0-5.4 2-5.4 4.4s2.4 4.4 5.4 4.4c.5 0 1-.1 1.5-.2l1.9 1-.5-1.7c1.4-.8 2.3-2.1 2.3-3.5 0-2.4-2.4-4.4-5.2-4.4zm-1.8 2.4a.75.75 0 110 1.5.75.75 0 010-1.5zm3.6 0a.75.75 0 110 1.5.75.75 0 010-1.5z"/></svg></a>
-      <a href="#" title="Email" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1zm8 7.4L5 7v10h14V7l-7 5.4z"/></svg></a>
+      <a href="https://search.bilibili.com/upuser?keyword=%E6%A0%BC%E6%8C%82%E5%AD%900" target="_blank" rel="noopener" title="Bilibili" aria-label="Bilibili"><svg viewBox="0 0 24 24"><path d="M17.8 4.6l1.5-1.5a.75.75 0 011 1L19 5.4c1.6.3 2.5 1.2 2.5 3v8c0 2.2-1.8 3.6-4 3.6h-11c-2.2 0-4-1.4-4-3.6v-8c0-1.8.9-2.7 2.5-3L3.7 4a.75.75 0 011-1l1.6 1.5c.4-.1 1-.1 1.7-.1h8c.7 0 1.3 0 1.8.2zM8 10a1.2 1.2 0 100 2.4A1.2 1.2 0 008 10zm8 0a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/></svg></a>
+      <a href="https://www.douyin.com/search/Plaidshirt" target="_blank" rel="noopener" title="抖音" aria-label="抖音"><svg viewBox="0 0 24 24"><path d="M16.6 3c.4 2 1.8 3.4 3.9 3.6v3.1c-1.5 0-2.9-.5-3.9-1.2v6.3c0 3.6-2.6 6.2-6 6.2-3.3 0-6-2.6-6-6 0-3.6 3-6.2 6.6-6v3.2c-1.9-.1-3.4 1.2-3.4 2.9 0 1.6 1.3 2.8 2.9 2.8 1.7 0 2.9-1.3 2.9-3.1V3h3z"/></svg></a>
+      <a href="#" title="微信" aria-label="微信" data-img="assets/qr_wechat.webp" data-title="微信 · geguazi — 扫码加好友"><svg viewBox="0 0 24 24"><path d="M9.5 4C5.9 4 3 6.5 3 9.6c0 1.8 1 3.3 2.5 4.3l-.6 2 2.2-1.1c.5.1 1 .2 1.5.2.2 0 .4 0 .6 0-.2-.6-.3-1.2-.3-1.8 0-3 2.9-5.4 6.4-5.4h.5C15.3 5.6 12.7 4 9.5 4zM7.4 7.2a.9.9 0 110 1.8.9.9 0 010-1.8zm4.2 0a.9.9 0 110 1.8.9.9 0 010-1.8zM15.4 9.5c-3 0-5.4 2-5.4 4.4s2.4 4.4 5.4 4.4c.5 0 1-.1 1.5-.2l1.9 1-.5-1.7c1.4-.8 2.3-2.1 2.3-3.5 0-2.4-2.4-4.4-5.2-4.4zm-1.8 2.4a.75.75 0 110 1.5.75.75 0 010-1.5zm3.6 0a.75.75 0 110 1.5.75.75 0 010-1.5z"/></svg></a>
+      <a href="mailto:740911996@qq.com" title="Email" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1zm8 7.4L5 7v10h14V7l-7 5.4z"/></svg></a>
     </div>
   </div>
 
@@ -567,11 +574,29 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
     <div class="contact-inner">
       <div class="big">Got an idea?<br><em>Let's talk.</em></div>
       <p class="sub">合作 / 约稿 / 交流 —— 随时找到我。<br>COLLABORATION · COMMISSION · JUST SAY HI</p>
-      <div class="contact-links">
-        <a href="#"><svg viewBox="0 0 24 24"><path d="M9.5 4C5.9 4 3 6.5 3 9.6c0 1.8 1 3.3 2.5 4.3l-.6 2 2.2-1.1c.5.1 1 .2 1.5.2.2 0 .4 0 .6 0-.2-.6-.3-1.2-.3-1.8 0-3 2.9-5.4 6.4-5.4h.5C15.3 5.6 12.7 4 9.5 4zM7.4 7.2a.9.9 0 110 1.8.9.9 0 010-1.8zm4.2 0a.9.9 0 110 1.8.9.9 0 010-1.8zM15.4 9.5c-3 0-5.4 2-5.4 4.4s2.4 4.4 5.4 4.4c.5 0 1-.1 1.5-.2l1.9 1-.5-1.7c1.4-.8 2.3-2.1 2.3-3.5 0-2.4-2.4-4.4-5.2-4.4z"/></svg>WECHAT</a>
-        <a href="#"><svg viewBox="0 0 24 24"><path d="M17.8 4.6l1.5-1.5a.75.75 0 011 1L19 5.4c1.6.3 2.5 1.2 2.5 3v8c0 2.2-1.8 3.6-4 3.6h-11c-2.2 0-4-1.4-4-3.6v-8c0-1.8.9-2.7 2.5-3L3.7 4a.75.75 0 011-1l1.6 1.5c.4-.1 1-.1 1.7-.1h8c.7 0 1.3 0 1.8.2zM8 10a1.2 1.2 0 100 2.4A1.2 1.2 0 008 10zm8 0a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/></svg>BILIBILI</a>
-        <a href="#"><svg viewBox="0 0 24 24"><path d="M16.6 3c.4 2 1.8 3.4 3.9 3.6v3.1c-1.5 0-2.9-.5-3.9-1.2v6.3c0 3.6-2.6 6.2-6 6.2-3.3 0-6-2.6-6-6 0-3.6 3-6.2 6.6-6v3.2c-1.9-.1-3.4 1.2-3.4 2.9 0 1.6 1.3 2.8 2.9 2.8 1.7 0 2.9-1.3 2.9-3.1V3h3z"/></svg>DOUYIN</a>
-        <a href="#"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1zm8 7.4L5 7v10h14V7l-7 5.4z"/></svg>EMAIL</a>
+      <div class="contact-grid">
+        <div class="c-card" data-img="assets/qr_wechat.webp" data-title="微信 · geguazi — 扫码加好友">
+          <div class="c-top"><svg viewBox="0 0 24 24"><path d="M9.5 4C5.9 4 3 6.5 3 9.6c0 1.8 1 3.3 2.5 4.3l-.6 2 2.2-1.1c.5.1 1 .2 1.5.2.2 0 .4 0 .6 0-.2-.6-.3-1.2-.3-1.8 0-3 2.9-5.4 6.4-5.4h.5C15.3 5.6 12.7 4 9.5 4zM7.4 7.2a.9.9 0 110 1.8.9.9 0 010-1.8zm4.2 0a.9.9 0 110 1.8.9.9 0 010-1.8zM15.4 9.5c-3 0-5.4 2-5.4 4.4s2.4 4.4 5.4 4.4c.5 0 1-.1 1.5-.2l1.9 1-.5-1.7c1.4-.8 2.3-2.1 2.3-3.5 0-2.4-2.4-4.4-5.2-4.4zm-1.8 2.4a.75.75 0 110 1.5.75.75 0 010-1.5zm3.6 0a.75.75 0 110 1.5.75.75 0 010-1.5z"/></svg>WECHAT</div>
+          <div class="c-id">geguazi</div>
+          <img src="assets/qr_wechat.webp" alt="微信二维码" loading="lazy">
+          <div class="c-hint">扫码加好友 · 点击放大</div>
+        </div>
+        <div class="c-card" data-img="assets/qr_douyin.webp" data-title="抖音 · Plaidshirt — 扫码关注">
+          <div class="c-top"><svg viewBox="0 0 24 24"><path d="M16.6 3c.4 2 1.8 3.4 3.9 3.6v3.1c-1.5 0-2.9-.5-3.9-1.2v6.3c0 3.6-2.6 6.2-6 6.2-3.3 0-6-2.6-6-6 0-3.6 3-6.2 6.6-6v3.2c-1.9-.1-3.4 1.2-3.4 2.9 0 1.6 1.3 2.8 2.9 2.8 1.7 0 2.9-1.3 2.9-3.1V3h3z"/></svg>DOUYIN</div>
+          <div class="c-id">Plaidshirt</div>
+          <img src="assets/qr_douyin.webp" alt="抖音二维码" loading="lazy">
+          <div class="c-hint">扫码关注 · 点击放大</div>
+        </div>
+        <a class="c-card c-link" href="https://search.bilibili.com/upuser?keyword=%E6%A0%BC%E6%8C%82%E5%AD%900" target="_blank" rel="noopener">
+          <div class="c-top"><svg viewBox="0 0 24 24"><path d="M17.8 4.6l1.5-1.5a.75.75 0 011 1L19 5.4c1.6.3 2.5 1.2 2.5 3v8c0 2.2-1.8 3.6-4 3.6h-11c-2.2 0-4-1.4-4-3.6v-8c0-1.8.9-2.7 2.5-3L3.7 4a.75.75 0 011-1l1.6 1.5c.4-.1 1-.1 1.7-.1h8c.7 0 1.3 0 1.8.2zM8 10a1.2 1.2 0 100 2.4A1.2 1.2 0 008 10zm8 0a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/></svg>BILIBILI</div>
+          <div class="c-id">格褂子0</div>
+          <div class="c-hint">前往主页 →</div>
+        </a>
+        <a class="c-card c-link" href="mailto:740911996@qq.com">
+          <div class="c-top"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1zm8 7.4L5 7v10h14V7l-7 5.4z"/></svg>EMAIL</div>
+          <div class="c-id">740911996@qq.com</div>
+          <div class="c-hint">发邮件 →</div>
+        </a>
       </div>
     </div>
   </section>
@@ -616,7 +641,8 @@ lb.addEventListener('click',function(e){if(e.target===lb)closeLb()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb()});
 
 document.querySelectorAll('[data-img]').forEach(function(el){
-  el.addEventListener('click',function(){
+  el.addEventListener('click',function(e){
+    e.preventDefault();
     openLb('<img src="'+el.dataset.img+'" alt="">',el.dataset.title||'');
   });
 });
