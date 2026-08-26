@@ -167,35 +167,39 @@ section.block{padding:56px 34px;border-top:1px solid var(--line)}
   border:1px solid var(--line2);padding:8px 14px;transition:.2s}
 .past-roles span:hover{color:var(--purple);border-color:var(--purple-dim)}
 
-/* ============ WORKS GALLERY ============ */
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
-.filters button{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--muted);background:none;
-  border:1px solid var(--line2);padding:10px 16px;min-height:44px;cursor:pointer;transition:.2s}
-.filters button:hover{color:var(--text);border-color:var(--muted2)}
-.filters button.on{color:#000;background:var(--lime);border-color:var(--lime)}
-.film-feature{position:relative;margin-bottom:26px;border:1px solid var(--line);overflow:hidden;cursor:pointer;background:#000}
-.film-feature img{width:100%;aspect-ratio:21/9;object-fit:cover;filter:brightness(.75);transition:filter .3s}
-.film-feature:hover img{filter:brightness(.95)}
-.film-feature .info{position:absolute;left:24px;bottom:22px;z-index:2}
-.film-feature .info .cat{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;color:var(--lime)}
-.film-feature .info .t{font-family:var(--display);font-size:clamp(24px,3vw,42px);text-transform:uppercase;margin-top:8px}
-.film-feature .info .d{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:1px}
-.film-feature .playb{position:absolute;right:26px;bottom:22px;width:66px;height:66px;border:1px solid var(--lime);
-  border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5);transition:.25s;z-index:2}
-.film-feature:hover .playb{background:var(--lime)}
-.film-feature .playb svg{width:20px;height:20px;fill:var(--lime);margin-left:4px;transition:.25s}
-.film-feature:hover .playb svg{fill:#000}
-.gallery{columns:3;column-gap:14px}
-.gallery .g-item{break-inside:avoid;margin-bottom:14px;position:relative;overflow:hidden;cursor:pointer;border:1px solid var(--line);background:var(--panel)}
-.gallery .g-item img{width:100%;filter:brightness(.85) saturate(.96);transition:filter .3s,transform .5s}
-.gallery .g-item:hover img{filter:brightness(1.02);transform:scale(1.03)}
-.gallery .g-item:hover{border-color:var(--lime-dim)}
-.gallery .g-item .cap{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;
-  background:linear-gradient(transparent,rgba(0,0,0,.88));font-family:var(--mono);font-size:10px;letter-spacing:1.4px;
-  color:#e8e8e8;opacity:0;transform:translateY(6px);transition:.25s;display:flex;justify-content:space-between;gap:8px}
-.gallery .g-item:hover .cap{opacity:1;transform:none}
-.gallery .g-item .cap em{font-style:normal;color:var(--lime)}
-.gallery .g-item.hide{display:none}
+/* ============ WORKS: COLLECTIONS ============ */
+.col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.col-card{position:relative;overflow:hidden;background:var(--panel);border:1px solid var(--line);cursor:pointer;aspect-ratio:3/3.4}
+.col-card img{width:100%;height:100%;object-fit:cover;filter:brightness(.82) saturate(.95);transition:filter .3s,transform .6s}
+.col-card:hover img{filter:brightness(1);transform:scale(1.05)}
+.col-card:hover{border-color:var(--lime-dim)}
+.col-card .cc-info{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;background:linear-gradient(transparent,rgba(0,0,0,.92))}
+.col-card .cc-name{font-family:var(--display);font-size:20px;letter-spacing:1px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.col-card .cc-count{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--lime);margin-top:5px}
+.col-card .cc-play{position:absolute;top:12px;right:12px;width:34px;height:34px;border:1px solid var(--lime);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
+.col-card .cc-play svg{width:12px;height:12px;fill:var(--lime);margin-left:2px}
+
+/* ============ GALLERY VIEWER ============ */
+.gv{position:fixed;inset:0;background:rgba(4,4,4,.97);z-index:300;display:none;flex-direction:column}
+.gv.open{display:flex}
+.gv-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.gv-title{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--lime)}
+.gv-count{font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--muted)}
+.gv-close{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--muted);background:none;border:1px solid var(--line2);padding:9px 16px;cursor:pointer;min-height:44px}
+.gv-close:hover{color:var(--lime);border-color:var(--lime)}
+.gv-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:0;padding:16px 70px}
+.gv-stage img,.gv-stage video{max-width:100%;max-height:calc(100vh - 230px);box-shadow:0 0 0 1px var(--line2);background:#000}
+.gv-nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border:1px solid var(--line2);border-radius:50%;background:rgba(0,0,0,.6);color:var(--muted);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2}
+.gv-nav:hover{color:var(--lime);border-color:var(--lime)}
+.gv-prev{left:14px}.gv-next{right:14px}
+.gv-caption{text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:1.6px;color:var(--muted);padding:2px 0 12px}
+.gv-thumbs{display:flex;gap:10px;overflow-x:auto;padding:0 20px 18px;justify-content:center}
+.gv-thumb{flex:0 0 auto;width:80px;height:80px;border:2px solid var(--line2);cursor:pointer;overflow:hidden;position:relative;background:#000;transition:border-color .2s}
+.gv-thumb img{width:100%;height:100%;object-fit:cover;filter:brightness(.72)}
+.gv-thumb.active{border-color:var(--lime)}
+.gv-thumb.active img{filter:brightness(1)}
+.gv-thumb .vtag{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.gv-thumb .vtag svg{width:18px;height:18px;fill:var(--lime);filter:drop-shadow(0 0 3px #000)}
 
 /* ============ CONTACT ============ */
 .contact-inner{text-align:left;padding:30px 0 10px}
@@ -227,7 +231,7 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
 /* ============ RESPONSIVE ============ */
 @media (max-width:1060px){
   .sel-grid{grid-template-columns:repeat(2,1fr)}
-  .gallery{columns:2}
+  .col-grid{grid-template-columns:repeat(2,1fr)}
   .exp-wrap{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:repeat(2,1fr)}
 }
@@ -258,11 +262,12 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
   .nav a .idx{display:none}
   .nav a{font-size:11px;padding:8px 7px}
   .sel-grid{grid-template-columns:1fr 1fr}
+  .col-grid{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr}
   .c-card{min-height:0}
-  .gallery{columns:1}
-  .film-feature img{aspect-ratio:16/9}
   .stat .num{font-size:34px}
+  .gv-stage{padding:12px 48px}
+  .gv-thumbs{justify-content:flex-start}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -405,35 +410,35 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
         <a class="sec-link" href="#works">VIEW ALL WORKS <span class="arr">→</span></a>
       </div>
       <div class="sel-grid">
-        <div class="work-card" data-video="assets/huozhong.mp4" data-title="火种 · THE SPARK — AI SHORT FILM">
-          <img src="assets/huozhong_poster.webp" alt="火种">
-          <div class="meta">AI SHORT FILM<br>2026</div>
+        <div class="work-card" data-col="huozhong">
+          <img src="assets/g/huozhong/01.webp" alt="火种" loading="lazy">
+          <div class="meta">AI SHORT FILM<br>8 图 + 短片</div>
           <div class="play"><i><svg viewBox="0 0 24 24"><path d="M6 3l14 9-14 9z"/></svg></i></div>
           <div class="ttl">火种 · THE SPARK</div>
         </div>
-        <div class="work-card" data-img="assets/work03.webp" data-title="青17 · 角色设定集 — CHARACTER SHEET">
-          <img src="assets/work03.webp" alt="青17角色设定集" loading="lazy">
-          <div class="meta">CHARACTER SHEET<br>2026</div>
-          <div class="ttl">青17 · 角色设定集</div>
+        <div class="work-card" data-col="qing17">
+          <img src="assets/g/qing17/01.webp" alt="青17" loading="lazy">
+          <div class="meta">CHARACTER<br>4 图</div>
+          <div class="ttl">青17 · 角色设定</div>
         </div>
-        <div class="work-card" data-img="assets/work08.webp" data-title="黑白肖像 — B&amp;W PORTRAIT">
-          <img src="assets/work08.webp" alt="黑白肖像" loading="lazy">
-          <div class="meta">B&amp;W PORTRAIT<br>2026</div>
-          <div class="ttl">黑白肖像</div>
+        <div class="work-card" data-col="portrait">
+          <img src="assets/g/portrait/01.webp" alt="写实女人" loading="lazy">
+          <div class="meta">PORTRAIT<br>7 图</div>
+          <div class="ttl">写实女人</div>
         </div>
-        <div class="work-card" data-img="assets/work05.webp" data-title="义体人 · 角色设定 — CYBORG CHARACTER">
-          <img src="assets/work05.webp" alt="义体人角色设定" loading="lazy">
-          <div class="meta">CHARACTER DESIGN<br>2026</div>
-          <div class="ttl">义体人 · 角色设定</div>
+        <div class="work-card" data-col="scene">
+          <img src="assets/g/scene/01.webp" alt="断桥残血场景" loading="lazy">
+          <div class="meta">SCENE DESIGN<br>4 图</div>
+          <div class="ttl">断桥残血 · 场景</div>
         </div>
       </div>
     </div>
 
     <!-- STATS -->
     <div class="stats">
-      <div class="stat"><div class="num">01</div><div class="lbl">AI SHORT FILM</div></div>
-      <div class="stat"><div class="num">13</div><div class="lbl">AI IMAGE WORKS</div></div>
-      <div class="stat"><div class="num">03</div><div class="lbl">FORMER ROLES</div></div>
+      <div class="stat"><div class="num">09</div><div class="lbl">COLLECTIONS</div></div>
+      <div class="stat"><div class="num">34</div><div class="lbl">AI IMAGE WORKS</div></div>
+      <div class="stat"><div class="num">04</div><div class="lbl">AI VIDEOS</div></div>
       <div class="stat"><div class="num">∞</div><div class="lbl">CREATIVE POSSIBILITIES</div></div>
     </div>
   </section>
@@ -469,81 +474,11 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
 
   <!-- ============ WORKS ============ -->
   <section class="block" id="works">
-    <div class="sec-head"><div class="sec-label">ALL WORKS</div></div>
-
-    <div class="filters" id="filters">
-      <button class="on" data-f="all">ALL</button>
-      <button data-f="film">AI FILM</button>
-      <button data-f="character">CHARACTER</button>
-      <button data-f="portrait">PORTRAIT</button>
-      <button data-f="fashion">FASHION</button>
+    <div class="sec-head">
+      <div class="sec-label">ALL WORKS</div>
+      <div class="sec-link" style="color:var(--muted2);font-size:10px;cursor:default">点击分类浏览 · 滚轮 / 点击缩略图切换</div>
     </div>
-
-    <!-- featured film -->
-    <div class="film-feature" data-video="assets/huozhong.mp4" data-title="火种 · THE SPARK — AI SHORT FILM" data-cat="film">
-      <img src="assets/huozhong_poster.webp" alt="火种">
-      <div class="info">
-        <div class="cat">■ AI SHORT FILM · 2026 · 4'58"</div>
-        <div class="t">火种 · THE SPARK</div>
-        <div class="d">AI 科幻短片 — 太空站 / 全息 / 人性余温</div>
-      </div>
-      <div class="playb"><svg viewBox="0 0 24 24"><path d="M6 3l14 9-14 9z"/></svg></div>
-    </div>
-
-    <div class="gallery" id="gallery">
-      <div class="g-item" data-cat="character" data-img="assets/work03.webp" data-title="青17 · 角色设定集">
-        <img src="assets/work03.webp" alt="青17角色设定集" loading="lazy">
-        <div class="cap"><span>青17 · 角色设定集</span><em>CHARACTER / 2026</em></div>
-      </div>
-      <div class="g-item" data-cat="portrait" data-img="assets/work01.webp" data-title="凝视">
-        <img src="assets/work01.webp" alt="凝视" loading="lazy">
-        <div class="cap"><span>凝视</span><em>PORTRAIT / 2026</em></div>
-      </div>
-      <div class="g-item" data-cat="character" data-img="assets/work02.webp" data-title="角色设定 · 壹">
-        <img src="assets/work02.webp" alt="角色设定壹" loading="lazy">
-        <div class="cap"><span>角色设定 · 壹</span><em>CHARACTER / 2026</em></div>
-      </div>
-      <div class="g-item" data-cat="portrait" data-img="assets/work08.webp" data-title="黑白肖像">
-        <img src="assets/work08.webp" alt="黑白肖像" loading="lazy">
-        <div class="cap"><span>黑白肖像</span><em>PORTRAIT / 2026</em></div>
-      </div>
-      <div class="g-item" data-cat="character" data-img="assets/work05.webp" data-title="义体人 · 角色设定">
-        <img src="assets/work05.webp" alt="义体人" loading="lazy">
-        <div class="cap"><span>义体人 · 角色设定</span><em>CHARACTER / 2026</em></div>
-      </div>
-      <div class="g-item" data-cat="portrait" data-img="assets/work07.webp" data-title="花田">
-        <img src="assets/work07.webp" alt="花田" loading="lazy">
-        <div class="cap"><span>花田</span><em>PORTRAIT / 2026</em></div>
-      </div>
-      <div class="g-item" data-cat="character" data-img="assets/work04.webp" data-title="角色设定 · 贰">
-        <img src="assets/work04.webp" alt="角色设定贰" loading="lazy">
-        <div class="cap"><span>角色设定 · 贰</span><em>CHARACTER / 2026</em></div>
-      </div>
-      <div class="g-item" data-cat="fashion" data-img="assets/work09.webp" data-title="时装设定 · 壹">
-        <img src="assets/work09.webp" alt="时装设定壹" loading="lazy">
-        <div class="cap"><span>时装设定 · 壹</span><em>FASHION / 2026</em></div>
-      </div>
-      <div class="g-item" data-cat="portrait" data-img="assets/work10.webp" data-title="窗">
-        <img src="assets/work10.webp" alt="窗" loading="lazy">
-        <div class="cap"><span>窗</span><em>PORTRAIT / 2026</em></div>
-      </div>
-      <div class="g-item" data-cat="character" data-img="assets/work06.webp" data-title="角色设定 · 叁">
-        <img src="assets/work06.webp" alt="角色设定叁" loading="lazy">
-        <div class="cap"><span>角色设定 · 叁</span><em>CHARACTER / 2026</em></div>
-      </div>
-      <div class="g-item" data-cat="portrait" data-img="assets/work11.webp" data-title="午后">
-        <img src="assets/work11.webp" alt="午后" loading="lazy">
-        <div class="cap"><span>午后</span><em>PORTRAIT / 2026</em></div>
-      </div>
-      <div class="g-item" data-cat="fashion" data-img="assets/work12.webp" data-title="时装设定 · 贰">
-        <img src="assets/work12.webp" alt="时装设定贰" loading="lazy">
-        <div class="cap"><span>时装设定 · 贰</span><em>FASHION / 2026</em></div>
-      </div>
-      <div class="g-item" data-cat="portrait" data-img="assets/work13.webp" data-title="肖像">
-        <img src="assets/work13.webp" alt="肖像" loading="lazy">
-        <div class="cap"><span>肖像</span><em>PORTRAIT / 2026</em></div>
-      </div>
-    </div>
+    <div class="col-grid" id="colGrid"><!-- JS 动态生成 --></div>
   </section>
 
   <!-- ============ SERVICES / EXPERTISE ============ -->
@@ -614,6 +549,21 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
   <div class="cap-b" id="lbCap"></div>
 </div>
 
+<!-- ================= GALLERY VIEWER ================= -->
+<div class="gv" id="gv">
+  <div class="gv-top">
+    <div class="gv-title" id="gvTitle"></div>
+    <div class="gv-count" id="gvCount"></div>
+    <button class="gv-close" id="gvClose">CLOSE ✕</button>
+  </div>
+  <div class="gv-stage" id="gvStage">
+    <button class="gv-nav gv-prev" id="gvPrev">‹</button>
+    <button class="gv-nav gv-next" id="gvNext">›</button>
+  </div>
+  <div class="gv-caption" id="gvCaption"></div>
+  <div class="gv-thumbs" id="gvThumbs"></div>
+</div>
+
 <script>
 // clock
 function tick(){
@@ -632,13 +582,12 @@ function onScroll(){
 }
 window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
-// lightbox
+// lightbox（二维码等单图放大）
 var lb=document.getElementById('lb'),lbBody=document.getElementById('lbBody'),lbCap=document.getElementById('lbCap');
 function openLb(html,cap){lbBody.innerHTML=html;lbCap.textContent=cap||'';lb.classList.add('open');document.body.style.overflow='hidden'}
 function closeLb(){lb.classList.remove('open');lbBody.innerHTML='';document.body.style.overflow=''}
 document.getElementById('lbClose').addEventListener('click',closeLb);
 lb.addEventListener('click',function(e){if(e.target===lb)closeLb()});
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb()});
 
 document.querySelectorAll('[data-img]').forEach(function(el){
   el.addEventListener('click',function(e){
@@ -646,22 +595,117 @@ document.querySelectorAll('[data-img]').forEach(function(el){
     openLb('<img src="'+el.dataset.img+'" alt="">',el.dataset.title||'');
   });
 });
-document.querySelectorAll('[data-video]').forEach(function(el){
-  el.addEventListener('click',function(){
-    openLb('<video src="'+el.dataset.video+'" controls autoplay playsinline style="width:min(92vw,1100px)"></video>',el.dataset.title||'');
-  });
+
+// ============ 作品集数据 ============
+function imgs(id,name,n){
+  var a=[];
+  for(var i=1;i<=n;i++){
+    var s=('0'+i).slice(-2);
+    a.push({kind:'img',big:'assets/g/'+id+'/'+s+'.webp',thumb:'assets/g/'+id+'/t'+s+'.webp',title:name+' · '+i});
+  }
+  return a;
+}
+var COL=[
+  {id:'huozhong',name:'火种',cover:'assets/g/huozhong/01.webp',
+    items:imgs('huozhong','火种',8).concat([{kind:'video',src:'assets/g/huozhong/huozhong.mp4',poster:'assets/g/huozhong/v_poster.webp',thumb:'assets/g/huozhong/tv_poster.webp',title:'火种 · 完整短片'}])},
+  {id:'clip',name:'火种片花',cover:'assets/g/clip/01.webp',
+    items:imgs('clip','火种片花',3).concat([{kind:'video',src:'assets/g/clip/clip.mp4',poster:'assets/g/clip/v_poster.webp',thumb:'assets/g/clip/tv_poster.webp',title:'火种片花 · 视频'}])},
+  {id:'qing17',name:'青17',cover:'assets/g/qing17/01.webp',items:imgs('qing17','青17',4)},
+  {id:'xuhanwen',name:'许瀚文',cover:'assets/g/xuhanwen/01.webp',items:imgs('xuhanwen','许瀚文',3)},
+  {id:'bailing',name:'白零',cover:'assets/g/bailing/01.webp',items:imgs('bailing','白零',4)},
+  {id:'ajie',name:'阿杰',cover:'assets/g/ajie/01.webp',items:imgs('ajie','阿杰',1)},
+  {id:'scene',name:'断桥残血 · 场景',cover:'assets/g/scene/01.webp',items:imgs('scene','断桥残血 · 场景',4)},
+  {id:'portrait',name:'写实女人',cover:'assets/g/portrait/01.webp',items:imgs('portrait','写实女人',7)},
+  {id:'chinajoy',name:'ChinaJoy 2026',cover:'assets/g/chinajoy/cover.webp',items:[
+    {kind:'video',src:'assets/g/chinajoy/v1.mp4',poster:'assets/g/chinajoy/cover.webp',thumb:'assets/g/chinajoy/tcover.webp',title:'ChinaJoy 2026 · 视频 1'},
+    {kind:'video',src:'assets/g/chinajoy/v2.mp4',poster:'assets/g/chinajoy/cover.webp',thumb:'assets/g/chinajoy/tcover.webp',title:'ChinaJoy 2026 · 视频 2'}
+  ]}
+];
+
+// 渲染分类卡片
+var colGrid=document.getElementById('colGrid');
+COL.forEach(function(c){
+  var hasVid=c.items.some(function(it){return it.kind==='video'});
+  var d=document.createElement('div');d.className='col-card';d.setAttribute('data-col',c.id);
+  d.innerHTML='<img src="'+c.cover+'" alt="'+c.name+'" loading="lazy">'
+    +(hasVid?'<div class="cc-play"><svg viewBox="0 0 24 24"><path d="M6 3l14 9-14 9z"/></svg></div>':'')
+    +'<div class="cc-info"><div class="cc-name">'+c.name+'</div><div class="cc-count">'+c.items.length+' ITEMS'+(hasVid?' · 含视频':'')+'</div></div>';
+  colGrid.appendChild(d);
 });
 
-// filters
-document.getElementById('filters').addEventListener('click',function(e){
-  var b=e.target.closest('button');if(!b)return;
-  document.querySelectorAll('#filters button').forEach(function(x){x.classList.remove('on')});
-  b.classList.add('on');
-  var f=b.dataset.f;
-  document.querySelectorAll('.g-item,.film-feature').forEach(function(it){
-    it.classList.toggle('hide',f!=='all'&&it.dataset.cat!==f);
-  });
+// 点击任何带 data-col 的元素（selected works 卡 + 分类卡）打开画廊
+document.addEventListener('click',function(e){
+  var el=e.target.closest('[data-col]');
+  if(el)openGallery(el.getAttribute('data-col'));
 });
+
+// ============ 画廊查看器 ============
+var gv=document.getElementById('gv'),gvStage=document.getElementById('gvStage'),
+  gvTitle=document.getElementById('gvTitle'),gvCount=document.getElementById('gvCount'),
+  gvCaption=document.getElementById('gvCaption'),gvThumbs=document.getElementById('gvThumbs');
+var curCol=null,curIdx=0;
+
+function openGallery(id){
+  curCol=COL.find(function(c){return c.id===id});
+  if(!curCol)return;
+  curIdx=0;
+  gvTitle.textContent=curCol.name;
+  gv.classList.add('open');document.body.style.overflow='hidden';
+  renderThumbs();show(0);
+}
+function closeGallery(){
+  gv.classList.remove('open');document.body.style.overflow='';
+  gvStage.innerHTML='';gvThumbs.innerHTML='';
+}
+function renderThumbs(){
+  gvThumbs.innerHTML='';
+  curCol.items.forEach(function(it,i){
+    var t=document.createElement('div');t.className='gv-thumb'+(i===curIdx?' active':'');
+    t.innerHTML='<img src="'+it.thumb+'" alt="">'+(it.kind==='video'?'<div class="vtag"><svg viewBox="0 0 24 24"><path d="M6 3l14 9-14 9z"/></svg></div>':'');
+    t.addEventListener('click',function(){show(i)});
+    gvThumbs.appendChild(t);
+  });
+}
+function show(i){
+  curIdx=i;
+  var it=curCol.items[i];
+  gvStage.innerHTML= it.kind==='video'
+    ? '<video src="'+it.src+'" controls autoplay playsinline poster="'+it.poster+'"></video>'
+    : '<img src="'+it.big+'" alt="">';
+  gvCaption.textContent=it.title+'  ·  '+(i+1)+' / '+curCol.items.length;
+  gvCount.textContent=(i+1)+' / '+curCol.items.length;
+  var th=gvThumbs.children;
+  for(var k=0;k<th.length;k++)th[k].classList.toggle('active',k===i);
+  if(th[i])th[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+}
+function step(d){var n=curCol.items.length;show((curIdx+d+n)%n);}
+
+document.getElementById('gvClose').addEventListener('click',closeGallery);
+document.getElementById('gvPrev').addEventListener('click',function(e){e.stopPropagation();step(-1)});
+document.getElementById('gvNext').addEventListener('click',function(e){e.stopPropagation();step(1)});
+gv.addEventListener('click',function(e){if(e.target===gv)closeGallery()});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    if(gv.classList.contains('open'))closeGallery();
+    else closeLb();
+    return;
+  }
+  if(gv.classList.contains('open')){
+    if(e.key==='ArrowLeft')step(-1);
+    else if(e.key==='ArrowRight')step(1);
+  }
+});
+
+// 滚轮切换（大图区）
+var wheelLock=false;
+gvStage.addEventListener('wheel',function(e){
+  if(!gv.classList.contains('open'))return;
+  e.preventDefault();
+  if(wheelLock)return;wheelLock=true;
+  step(e.deltaY>0?1:-1);
+  setTimeout(function(){wheelLock=false},280);
+},{passive:false});
 </script>
 </body>
 </html>
