@@ -412,7 +412,7 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
 
     <!-- WOMAN SHOWREEL LOOP -->
     <div class="showreel">
-      <video src="assets/woman_loop.mp4" autoplay muted loop playsinline preload="metadata"></video>
+      <video id="srVideo" src="assets/woman_loop.mp4" poster="assets/woman_poster.webp" muted loop playsinline webkit-playsinline x5-playsinline preload="auto" autoplay></video>
       <div class="sr-tag">■ SHOWREEL · REALISTIC PORTRAIT MOTION</div>
     </div>
 
@@ -723,6 +723,28 @@ gvStage.addEventListener('wheel',function(e){
   step(e.deltaY>0?1:-1);
   setTimeout(function(){wheelLock=false},280);
 },{passive:false});
+
+// showreel 兜底：微信/低版浏览器拦 autoplay 时主动拉起播放
+(function(){
+  var v=document.getElementById('srVideo');
+  if(!v)return;
+  function tryPlay(){
+    var p=v.play();
+    if(p&&p.catch)p.catch(function(){});
+  }
+  tryPlay();
+  v.addEventListener('loadeddata',tryPlay);
+  // 首次触摸/点击页面时再试一次（微信常见策略）
+  var kicked=false;
+  function kick(){
+    if(kicked)return;kicked=true;
+    tryPlay();
+    document.removeEventListener('touchstart',kick);
+    document.removeEventListener('click',kick);
+  }
+  document.addEventListener('touchstart',kick,{passive:true});
+  document.addEventListener('click',kick,{passive:true});
+})();
 </script>
 </body>
 </html>
