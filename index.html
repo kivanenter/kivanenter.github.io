@@ -105,6 +105,11 @@ a{color:inherit;text-decoration:none}
 .window-card .based{font-family:var(--mono);font-size:7.5px;letter-spacing:1.2px;color:var(--muted2);border-top:1px solid var(--line);padding-top:7px}
 .pxarrow{position:absolute;top:-30px;right:14px;width:40px;height:40px;image-rendering:pixelated}
 
+/* ============ SHOWREEL LOOP ============ */
+.showreel{position:relative;padding:0 34px 54px;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:end}
+.showreel video{width:300px;border:1px solid var(--line2);display:block;background:#000}
+.showreel .sr-tag{font-family:var(--mono);font-size:11px;letter-spacing:3px;color:var(--muted2);padding-bottom:6px}
+
 /* ============ SECTION COMMON ============ */
 section.block{padding:56px 34px;border-top:1px solid var(--line)}
 .sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
@@ -250,6 +255,8 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
   .hero{grid-template-columns:1fr;padding:44px 22px}
   .hero-right{min-height:0;margin-top:14px}
   .window-card{right:0;bottom:-10px;width:170px}
+  .showreel{grid-template-columns:1fr;padding:0 22px 44px}
+  .showreel video{width:100%;max-width:360px}
   section.block{padding:44px 22px}
   .stats{grid-template-columns:repeat(2,1fr)}
   .stat{border-bottom:1px solid var(--line)}
@@ -401,6 +408,12 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
           </svg>
         </div>
       </div>
+    </div>
+
+    <!-- WOMAN SHOWREEL LOOP -->
+    <div class="showreel">
+      <video src="assets/woman_loop.mp4" autoplay muted loop playsinline preload="metadata"></video>
+      <div class="sr-tag">■ SHOWREEL · REALISTIC PORTRAIT MOTION</div>
     </div>
 
     <!-- SELECTED WORKS -->
