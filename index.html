@@ -432,6 +432,24 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
         <a class="sec-link" href="#works">VIEW ALL WORKS <span class="arr">→</span></a>
       </div>
       <div class="sel-grid">
+        <div class="work-card" data-col="friend">
+          <img src="assets/g/friend/v_poster.webp" alt="好朋友" loading="lazy">
+          <div class="meta">AI SHORT FILM<br>短片</div>
+          <div class="play"><i><svg viewBox="0 0 24 24"><path d="M6 3l14 9-14 9z"/></svg></i></div>
+          <div class="ttl">好朋友</div>
+        </div>
+        <div class="work-card" data-col="find">
+          <img src="assets/g/find/v_poster.webp" alt="找东西" loading="lazy">
+          <div class="meta">AI SHORT FILM<br>短片</div>
+          <div class="play"><i><svg viewBox="0 0 24 24"><path d="M6 3l14 9-14 9z"/></svg></i></div>
+          <div class="ttl">找东西</div>
+        </div>
+        <div class="work-card" data-col="morning">
+          <img src="assets/g/morning/v_poster.webp" alt="清晨出门" loading="lazy">
+          <div class="meta">AI SHORT FILM<br>短片</div>
+          <div class="play"><i><svg viewBox="0 0 24 24"><path d="M6 3l14 9-14 9z"/></svg></i></div>
+          <div class="ttl">清晨出门</div>
+        </div>
         <div class="work-card" data-col="huozhong">
           <img src="assets/g/huozhong/01.webp" alt="火种" loading="lazy">
           <div class="meta">AI SHORT FILM<br>8 图 + 短片</div>
@@ -458,9 +476,9 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
 
     <!-- STATS -->
     <div class="stats">
-      <div class="stat"><div class="num">13</div><div class="lbl">COLLECTIONS</div></div>
+      <div class="stat"><div class="num">16</div><div class="lbl">COLLECTIONS</div></div>
       <div class="stat"><div class="num">47</div><div class="lbl">AI IMAGE WORKS</div></div>
-      <div class="stat"><div class="num">04</div><div class="lbl">AI VIDEOS</div></div>
+      <div class="stat"><div class="num">07</div><div class="lbl">AI VIDEOS</div></div>
       <div class="stat"><div class="num">∞</div><div class="lbl">CREATIVE POSSIBILITIES</div></div>
     </div>
   </section>
@@ -628,6 +646,12 @@ function imgs(id,name,n){
   return a;
 }
 var COL=[
+  {id:'friend',name:'好朋友',cover:'assets/g/friend/v_poster.webp',
+    items:[{kind:'video',src:'assets/g/friend/friend.mp4',poster:'assets/g/friend/v_poster.webp',thumb:'assets/g/friend/tv_poster.webp',title:'好朋友 · 短片'}]},
+  {id:'find',name:'找东西',cover:'assets/g/find/v_poster.webp',
+    items:[{kind:'video',src:'assets/g/find/find.mp4',poster:'assets/g/find/v_poster.webp',thumb:'assets/g/find/tv_poster.webp',title:'找东西 · 短片'}]},
+  {id:'morning',name:'清晨出门',cover:'assets/g/morning/v_poster.webp',
+    items:[{kind:'video',src:'assets/g/morning/morning.mp4',poster:'assets/g/morning/v_poster.webp',thumb:'assets/g/morning/tv_poster.webp',title:'清晨出门 · 短片'}]},
   {id:'huozhong',name:'火种',cover:'assets/g/huozhong/01.webp',
     items:[{kind:'video',src:'assets/g/huozhong/huozhong.mp4',poster:'assets/g/huozhong/v_poster.webp',thumb:'assets/g/huozhong/tv_poster.webp',title:'火种 · 完整短片'}].concat(imgs('huozhong','火种',8))},
   {id:'clip',name:'火种片花',cover:'assets/g/clip/01.webp',
