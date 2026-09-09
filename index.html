@@ -478,7 +478,7 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
     <div class="stats">
       <div class="stat"><div class="num">16</div><div class="lbl">COLLECTIONS</div></div>
       <div class="stat"><div class="num">47</div><div class="lbl">AI IMAGE WORKS</div></div>
-      <div class="stat"><div class="num">07</div><div class="lbl">AI VIDEOS</div></div>
+      <div class="stat"><div class="num">09</div><div class="lbl">AI VIDEOS</div></div>
       <div class="stat"><div class="num">∞</div><div class="lbl">CREATIVE POSSIBILITIES</div></div>
     </div>
   </section>
@@ -647,7 +647,11 @@ function imgs(id,name,n){
 }
 var COL=[
   {id:'friend',name:'好朋友',cover:'assets/g/friend/v_poster.webp',
-    items:[{kind:'video',src:'assets/g/friend/friend.mp4',poster:'assets/g/friend/v_poster.webp',thumb:'assets/g/friend/tv_poster.webp',title:'好朋友 · 短片'}]},
+    items:[
+      {kind:'video',src:'assets/g/friend/friend.mp4',poster:'assets/g/friend/v_poster.webp',thumb:'assets/g/friend/tv_poster.webp',title:'好朋友 · 短片'},
+      {kind:'video',src:'assets/g/friend/plan.mp4',poster:'assets/g/friend/v_plan_cover.webp',thumb:'assets/g/friend/t_plan_cover.webp',title:'A计划B计划 · 短片'},
+      {kind:'video',src:'assets/g/friend/heist.mp4',poster:'assets/g/friend/v_heist_cover.webp',thumb:'assets/g/friend/t_heist_cover.webp',title:'干票大的2 · 短片'}
+    ]},
   {id:'find',name:'找东西',cover:'assets/g/find/v_poster.webp',
     items:[{kind:'video',src:'assets/g/find/find.mp4',poster:'assets/g/find/v_poster.webp',thumb:'assets/g/find/tv_poster.webp',title:'找东西 · 短片'}]},
   {id:'morning',name:'清晨出门',cover:'assets/g/morning/v_poster.webp',
