@@ -242,6 +242,57 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
 .lb .cap-b{position:absolute;bottom:16px;left:0;right:0;text-align:center;font-family:var(--mono);
   font-size:11px;letter-spacing:2px;color:var(--muted)}
 
+/* ============ AI MUSIC ============ */
+.mp-wrap{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:stretch}
+.mp-player{background:var(--panel);border:1px solid var(--line);display:grid;grid-template-columns:236px minmax(0,1fr);gap:24px;padding:22px}
+.mp-cover{position:relative;border:1px solid var(--line2);overflow:hidden;aspect-ratio:1;background:#000;align-self:start}
+.mp-cover img{width:100%;height:100%;object-fit:cover}
+.mp-cover .mp-badge{position:absolute;left:0;bottom:0;background:var(--lime);color:#000;font-family:var(--mono);font-size:9px;letter-spacing:2px;padding:5px 9px}
+.mp-cover.playing::after{content:'';position:absolute;inset:0;border:1px solid var(--lime);pointer-events:none}
+.mp-main{display:flex;flex-direction:column;min-width:0}
+.mp-kicker{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--muted2)}
+.mp-title{font-family:var(--display);font-size:clamp(24px,2.6vw,38px);line-height:1.08;margin-top:8px}
+.mp-album{font-family:var(--mono);font-size:11px;letter-spacing:1.8px;color:var(--muted);margin-top:10px}
+.mp-album a{color:var(--lime)}
+.mp-bar{position:relative;height:34px;border:1px solid var(--line2);margin-top:16px;cursor:pointer;background:var(--panel2);overflow:hidden}
+.mp-bar .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--purple),var(--lime));opacity:.8}
+.mp-bar .t{position:relative;display:flex;align-items:center;justify-content:space-between;height:100%;padding:0 10px;font-family:var(--mono);font-size:10px;letter-spacing:1.5px;color:#dedede}
+.mp-ctrl{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.mp-btn{min-height:44px;min-width:104px;display:inline-flex;align-items:center;justify-content:center;gap:9px;background:none;border:1px solid var(--lime);color:var(--lime);font-family:var(--mono);font-size:11px;letter-spacing:2.5px;cursor:pointer;transition:.2s}
+.mp-btn:hover{background:var(--lime);color:#000}
+.mp-btn.ghost{border-color:var(--line2);color:var(--muted);min-width:88px}
+.mp-btn.ghost:hover{background:transparent;border-color:var(--muted);color:var(--text)}
+.mp-btn svg{width:11px;height:11px;fill:currentColor}
+.mp-eq{display:inline-flex;gap:2px;align-items:flex-end;height:13px;margin-left:4px}
+.mp-eq i{width:2px;height:4px;background:var(--muted2)}
+.mp-eq.on i{background:var(--lime);animation:mpEq .9s ease-in-out infinite}
+.mp-eq.on i:nth-child(2){animation-delay:.15s}
+.mp-eq.on i:nth-child(3){animation-delay:.3s}
+@keyframes mpEq{0%,100%{height:3px}50%{height:13px}}
+.mp-lyr{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+.mp-lyr .lbl{font-family:var(--mono);font-size:9px;letter-spacing:2.5px;color:var(--muted2);margin-bottom:8px}
+.mp-lyr-roll{position:relative;height:112px;overflow:hidden;
+  -webkit-mask:linear-gradient(180deg,transparent,#000 26%,#000 74%,transparent);
+  mask:linear-gradient(180deg,transparent,#000 26%,#000 74%,transparent)}
+.mp-ln{font-size:14px;line-height:1.65;color:#6a6a6a;padding:2px 0;cursor:pointer;transition:color .25s}
+.mp-ln.near{color:#a9a9a9}
+.mp-ln.cur{color:var(--lime);font-size:16.5px;font-weight:600}
+.mp-list{background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.mp-list .hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:10px;letter-spacing:2.5px;color:var(--muted2)}
+.mp-items{overflow-y:auto;max-height:452px}
+.mp-item{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;padding:9px 14px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .2s}
+.mp-item:hover{background:#111}
+.mp-item.on{background:linear-gradient(90deg,rgba(201,242,46,.13),transparent 72%)}
+.mp-item img{width:44px;height:44px;object-fit:cover;border:1px solid var(--line2)}
+.mp-item .nm{font-size:14px;color:#e8e8e8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mp-item.on .nm{color:var(--lime)}
+.mp-item .sub{font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--muted2);margin-top:4px}
+.mp-item .tm{font-family:var(--mono);font-size:10px;color:var(--muted2)}
+.mp-note{font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--muted2);margin-top:14px;line-height:1.9}
+@media (max-width:1060px){.mp-wrap{grid-template-columns:1fr}.mp-items{max-height:none}}
+@media (max-width:860px){.mp-player{grid-template-columns:minmax(0,1fr);gap:18px}.mp-cover{max-width:230px}.mp-lyr-roll{height:100px}}
+@media (max-width:520px){.mp-player{padding:16px}.mp-btn{min-width:0;flex:1 1 40%}}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width:1060px){
   .sel-grid{grid-template-columns:repeat(2,1fr)}
@@ -521,6 +572,48 @@ footer{padding:26px 34px;border-top:1px solid var(--line);display:flex;justify-c
     <div class="col-grid" id="colGrid"><!-- JS 动态生成 --></div>
   </section>
 
+<!-- ============ AI MUSIC ============ -->
+  <section class="block" id="music">
+    <div class="sec-head">
+      <div class="sec-label">AI MUSIC</div>
+      <a class="sec-link" href="https://qishui.douyin.com/" target="_blank" rel="noopener">汽水音乐 · 一只哮天犬 <span class="arr">→</span></a>
+    </div>
+    <div class="mp-wrap">
+      <div class="mp-player">
+        <div class="mp-cover" id="mpCover">
+          <img id="mpCoverImg" src="assets/music/guifeng_cover.webp" alt="归风" loading="lazy">
+          <div class="mp-badge">AI MUSIC</div>
+        </div>
+        <div class="mp-main">
+          <div class="mp-kicker">NOW PLAYING / 正在播放</div>
+          <div class="mp-title" id="mpTitle">归风</div>
+          <div class="mp-album" id="mpAlbum">汽水音乐 · 一只哮天犬</div>
+          <div class="mp-bar" id="mpBar" role="slider" aria-label="播放进度" tabindex="0">
+            <div class="fill" id="mpFill"></div>
+            <div class="t"><span id="mpNow">00:00</span><span id="mpTot">00:00</span></div>
+          </div>
+          <div class="mp-ctrl">
+            <button class="mp-btn" id="mpPlay"><svg viewBox="0 0 24 24"><path id="mpIcon" d="M6 3l14 9-14 9z"/></svg><span id="mpPlayTxt">PLAY</span></button>
+            <button class="mp-btn ghost" id="mpStop">STOP</button>
+            <button class="mp-btn ghost" id="mpPrev">PREV</button>
+            <button class="mp-btn ghost" id="mpNext">NEXT</button>
+            <div class="mp-eq" id="mpEq" aria-hidden="true"><i></i><i></i><i></i></div>
+          </div>
+          <div class="mp-lyr">
+            <div class="lbl">LYRICS / 歌词</div>
+            <div class="mp-lyr-roll" id="mpRoll"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mp-list">
+        <div class="hd"><span>PLAYLIST / 播放列表</span><span id="mpCount">06 TRACKS</span></div>
+        <div class="mp-items" id="mpItems"></div>
+      </div>
+    </div>
+    <div class="mp-note">全部曲目由 AI 参与创作，发表于汽水音乐（演唱/发布：一只哮天犬）。点击曲目即播放，点击歌词可跳转进度。</div>
+    <audio id="mpAudio" preload="metadata"></audio>
+  </section>
+
   <!-- ============ SERVICES / EXPERTISE ============ -->
   <section class="block" id="services">
     <div class="sec-head"><div class="sec-label">EXPERTISE</div></div>
@@ -784,6 +877,135 @@ gvStage.addEventListener('wheel',function(e){
   }
   document.addEventListener('touchstart',kick,{passive:true});
   document.addEventListener('click',kick,{passive:true});
+})();
+// ============ AI MUSIC ============
+var MUSIC=[{"id":"guifeng","title":"归风","album":"汽水音乐","artist":"一只哮天犬","file":"assets/music/guifeng.mp3","cover":"assets/music/guifeng_cover.webp","thumb":"assets/music/guifeng_t.webp","dur":169.9,"page":"https://qishui.douyin.com/s/iXmX4AAw/","lyrics":[[0,"作曲：一只哮天犬"],[7404,"作词：一只哮天犬"],[14808,"回望半生我之所来"],[18448,"经过风霜穿过人海"],[22408,"把破碎的美好展开"],[26288,"我的心啊依然澎湃"],[30048,"我仰望着光向远方"],[33448,"看往事如戏梦一场"],[37368,"原来世间最难望"],[40368,"把昨日自己轻轻放"],[46328,"我始终相信这安排"],[50048,"哪怕生活反复重来"],[53928,"那些没说完的话和遗憾"],[57688,"某天终会释怀"],[61368,"我要逆着光 向远方"],[64808,"看往事如梦 醉一场"],[68728,"原来世间最难放"],[71688,"把昨日的自己轻轻藏"],[77448,"天空落下一束光 光 光 光"],[81168,"无人问来自何方 方 方 方"],[84848,"叫醒了我的梦 梦 梦 梦"],[88528,"人生如此真实又沉重"],[92208,"心中开出一小朵花 花 花 花"],[95928,"所有的美好如它 它 它 它"],[99608,"再人生的旅途中行走 走 走 走"],[103048,"我不再是无名的某 某 某"],[136488,"后来风给我答案"],[139928,"凡事不再追求圆满"],[143648,"我已经慢慢学会"],[147288,"和自己交谈"]]},{"id":"anqi","title":"愿卿安康","album":"汽水音乐","artist":"一只哮天犬","file":"assets/music/anqi.mp3","cover":"assets/music/anqi_cover.webp","thumb":"assets/music/anqi_t.webp","dur":147.3,"page":"https://qishui.douyin.com/s/iXmXV5Fm/","lyrics":[[0,"作曲：一只哮天犬"],[3297,"作词：一只哮天犬"],[6594,"或待明年归乡"],[10234,"夜静风凉 愿卿安康"],[30994,"行囊未干春衫凉"],[34434,"旧室寄离肠"],[37434,"与友分散南北远"],[40874,"我向燕赵 独往且迷茫"],[44714,"十七书信墨尚香"],[47714,"字微晕 意犹伤"],[51114,"千里音书隔岁月"],[54154,"一声珍重 夜半乱心肠"],[57594,"秋风微起休沐晨光"],[61034,"一纸车票承载倔强"],[64434,"电话声入谁忍再听"],[67874,"让你独自泪成行"],[72154,"深夜灯如常"],[74714,"病起有人问寒凉"],[78994,"世间皆可弃"],[81554,"唯愿与卿共一方"],[112434,"不羡朱门华堂"],[115874,"不逐浮名与盛光"],[119874,"愿卿眸长在侧"],[122714,"与我相守 长夜微光"],[128674,"千山回望"],[131674,"唯卿共处是天堂"]]},{"id":"qingchun","title":"青春真好","album":"汽水音乐","artist":"一只哮天犬","file":"assets/music/qingchun.mp3","cover":"assets/music/qingchun_cover.webp","thumb":"assets/music/qingchun_t.webp","dur":202.1,"page":"https://qishui.douyin.com/s/iXmXwxKQ/","lyrics":[[0,"作曲：一只哮天犬"],[7243,"作词：一只哮天犬"],[14486,"百油路滚烫的夏天"],[17406,"球鞋踩碎傍晚闪电"],[21126,"汗水像海风扑满脸"],[23646,"年轻的心从不收敛"],[27766,"翻过山 穿过旧街"],[30286,"单车冲下凌晨斜坡边"],[34006,"世界太大 我们太野"],[36886,"星海是青春发的请帖"],[40606,"那时候灵魂燃烧得太清闲"],[43526,"每一次跌倒都像节日般耀眼"],[47046,"我们不怕远"],[49526,"不怕输给时间"],[53886,"青春真好"],[55526,"像热带海浪不停翻涌奔跑"],[58806,"Oh minha vida 心脏疯狂地跳"],[62526,"风吹过梦的轨道"],[67086,"青春无敌"],[68726,"像爆裂的鼓点燃整个街角"],[71646,"月光和自由一起大声尖叫"],[75766,"谁也阻挡不了"],[80326,"Hey yeah yeah"],[81526,"我们曾赤脚丈量世界"],[84405,"Hey yeah"],[84846,"现在依然热烈不灭"],[91246,"后来有了灯火晚餐"],[93966,"有了孩子 有了答案"],[97246,"清晨背包换成账单"],[100126,"却依旧点燃那浪漫"],[103006,"陪他翻山 越过泥潭"],[106326,"重新扎进成长的烦恼"],[109646,"看他奔跑 我忽然懂了"],[112926,"原来青春从未走远"],[117006,"现在的梦不只靠双肩"],[119926,"思想航行在银河里面"],[123206,"笔尖代替旧日冲刺的闪电"],[126086,"灵魂依旧高速盘旋"],[129766,"年轻时追风"],[131446,"如今成为风"],[133086,"故事在深夜继续轰动"],[136366,"青春真好"],[138006,"哪怕岁月慢慢爬上眼角"],[140886,"我仍敢在暴雨之中大声笑"],[144966,"像第一次出逃 Oh"],[149086,"年长了也好"],[151126,"现在的我自由得不得了"],[154046,"不再害怕命运突然的风暴"],[158086,"因为心还在燃烧"],[162566,"Hey yeah yeah"],[164006,"生命开出绚烂花朵"],[166286,"Hey yeah"],[167126,"每道伤痕都闪烁着火"],[170206,"青春无敌"],[172846,"昨日今日都属于我"],[183326,"我依然可以"],[188846,"自由自在"],[191766,"无拘无束 地活"]]},{"id":"baishuo","title":"踏雪寻梅（白话版）","album":"汽水音乐","artist":"一只哮天犬","file":"assets/music/baishuo.mp3","cover":"assets/music/baishuo_cover.webp","thumb":"assets/music/baishuo_t.webp","dur":148.1,"page":"https://qishui.douyin.com/s/iXmXcyTu/","lyrics":[[0,"作曲：一只哮天犬"],[1043,"你蹲守在窗台 眼睛盯着窗外"],[6643,"那只小胖鸽 每天下午都来"],[12003,"黑色尾巴 打着节拍"],[14563,"把放平耳朵 隐藏脑袋"],[17603,"你眼中的猎物"],[19123,"把你当朋友看待"],[22803,"总是蹲在露台 有风景的转角"],[28563,"暗中观察世界 不错过一秒"],[33603,"你走路的姿势 婀娜曼妙"],[36283,"像个挑剔的 职场领导"],[39003,"无论屋里有什么瓜"],[41723,"你都不会错过一角"],[44723,"半夜轻拍我的肩"],[47123,"钻进被子道晚安"],[50123,"罐头一响就出现"],[52523,"柜子一开往里钻"],[55523,"闻快递 挠纸箱"],[57883,"钻进晾干的衣裳"],[61083,"脱下的袜子你会认真鉴赏"],[66003,"你的世界 气味像地图一样"],[71203,"你只是想知道"],[73203,"今天我捕猎的方向"],[77283,"你不吃满满的猫粮"],[79483,"独享我指尖的余香"],[82163,"如果我偷偷剥了虾"],[84203,"你像福尔摩斯一样"],[87563,"蹲在卫生间的门外"],[90243,"守护我像黑猫警长"],[92963,"你们有统一的制服"],[95643,"是黑白色的套装"],[98363,"闻快递 挠纸箱"],[101043,"钻进晾干的衣裳"],[104243,"脱下的袜子你会认真鉴赏"],[109163,"你的世界 气味像地图一样"],[114363,"你只是想守护"],[116243,"在有我的地方"],[120323,"波妞跳上窗台"],[122963,"晚风扑面吹来"],[126043,"咕咕咕又开始咕咕咕"],[128563,"你压低身体露个脑袋"],[131083,"耳朵放平屁股摇摆"],[133803,"尾巴打着节拍"],[136523,"这个世界只有你"],[140523,"神经又可爱"]]},{"id":"guofeng","title":"踏雪寻梅（国风版）","album":"汽水音乐","artist":"一只哮天犬","file":"assets/music/guofeng.mp3","cover":"assets/music/guofeng_cover.webp","thumb":"assets/music/guofeng_t.webp","dur":204.1,"page":"https://qishui.douyin.com/s/iXmX39EF/","lyrics":[[0,"作曲：一只哮天犬"],[4993,"作词：一只哮天犬"],[9986,"晚照落窗台"],[13706,"你伏小楼外"],[16666,"日日守那檐边鸽"],[21066,"尾尖轻摇摆"],[24786,"白云撞满怀"],[28426,"四爪踏霜白"],[31466,"压低耳朵藏脑袋"],[35866,"眸中若星海"],[38826,"常倚西风坐"],[42106,"静看人间烟火"],[45786,"巷陌悲欢多少事"],[48746,"你都悄然过"],[53586,"步履轻如歌"],[56826,"身影独冷漠"],[60986,"偏像执夜巡城人"],[63546,"看尽星辰落"],[67466,"夜半轻叩梦边帘"],[71146,"钻入怀中道安眠"],[74866,"食碟轻响忽现身"],[78546,"翻遍柜里旧云烟"],[83106,"闻书信 扰纸箱"],[86186,"躲进新干旧衣裳"],[90506,"连我解下旧罗袜"],[94226,"你也认真嗅端详"],[97226,"你的天地原来呀"],[100706,"是用气味绘山江"],[104386,"不过心疑我今日"],[107146,"又往何处去流浪"],[112666,"满盏鱼粮偏不尝"],[114580,"独恋指尖一点香"],[116420,"若我偷剥春江虾"],[118260,"你已循香到身旁"],[120066,"静守小窗灯未央"],[121946,"如夜巡的黑衣郎"],[123800,"世间多少踏雪客"],[125640,"皆披月色做衣裳"],[127466,"闻书信 扰纸箱"],[130506,"躲进新干旧衣裳"],[134786,"人间烟火千般味"],[138266,"你都默默放心上"],[141786,"你不过是想守着"],[146106,"有我停留的地方"],[149866,"风过长街灯影黄"],[152826,"半身乌墨半身霜"],[156546,"世人皆有归来处"],[160426,"你守我岁岁时光"],[163906,"波妞跃上小轩窗"],[167146,"晚风吹皱旧纱帐"],[171066,"咕咕声里斜阳远"],[174506,"你伏低身影偷偷望"],[178666,"耳尖微动尾轻晃"],[182146,"似有千军欲出疆"],[188186,"偌大人间偏爱你"],[192786,"神气又漂亮"]]},{"id":"boniu","title":"波妞","album":"汽水音乐","artist":"一只哮天犬","file":"assets/music/boniu.mp3","cover":"assets/music/boniu_cover.webp","thumb":"assets/music/boniu_t.webp","dur":175.6,"page":"https://qishui.douyin.com/s/iXmXtGov/","lyrics":[[0,"作曲：一只哮天犬"],[1257,"窗边的阳光慢慢爬上地板"],[4657,"你伸个懒腰又赖着不想管"],[8297,"猫粮和罐头摆得像自助餐"],[11457,"世界最大的烦恼只是今天几点玩"],[15577,"你躺在沙发像退休的老板"],[18777,"尾巴一晃一晃特别理所当然"],[22817,"追空气里的灰尘和光斑"],[26057,"忽然半夜发疯冲过整个客厅转弯"],[31257,"波妞啊 波妞"],[33297,"你怎么每天都那么自由"],[37417,"不用打卡不用低头"],[41017,"困了就睡醒了就走"],[44657,"我太羡慕你了 波妞"],[47777,"KPI是太阳要晒到午后"],[51897,"在最高的地方暗中观察"],[55057,"什么烦恼都不会拥有"],[59977,"玩个球 追影子"],[62817,"跑来跑去忽然像疯子"],[66417,"即使已经被绝育了"],[69137,"也还是快乐一辈子"],[73657,"我看着你发呆的时候"],[76857,"突然也想学会慢生活"],[80697,"如果人生能够像猫咪"],[83217,"那应该会轻松很多"],[88657,"你有最舒服那张小被单"],[91817,"还有属于自己的秘密地盘"],[95417,"偶尔高冷偶尔又来捣蛋"],[98617,"踩着键盘宣布今晚不许我加班"],[102217,"你根本不懂什么叫焦虑"],[105857,"不会为了明天失眠叹气"],[109897,"只在意窗外的咕咕咕"],[112417,"还有兔肉罐头和金枪鱼"],[117177,"也许幸福本来就很简单"],[120577,"有爱的人 有温暖的晚餐"],[124417,"能做喜欢的小事一整天"],[128057,"就已经值得庆祝平凡"],[131657,"我太羡慕你了 波妞"],[134777,"每天都活得那么轻柔"],[138417,"懒洋洋地渡过4个春秋"],[142017,"像风一样自我又自由"],[146097,"玩个球 追影子"],[149897,"突然暴走像个傻子"],[152817,"就算没有亲近过大自然"],[155737,"也是安心快乐的日子"],[160017,"如果可以的话"],[162697,"下辈子我也想当只猫"],[167217,"晒太阳 睡大觉"],[169897,"被世界温柔地拥抱"]]}];
+(function(){
+  var au=document.getElementById('mpAudio'),itemsEl=document.getElementById('mpItems'),
+      roll=document.getElementById('mpRoll'),bar=document.getElementById('mpBar'),
+      fill=document.getElementById('mpFill'),nowEl=document.getElementById('mpNow'),
+      totEl=document.getElementById('mpTot'),cover=document.getElementById('mpCover'),
+      coverImg=document.getElementById('mpCoverImg'),titleEl=document.getElementById('mpTitle'),
+      albumEl=document.getElementById('mpAlbum'),playBtn=document.getElementById('mpPlay'),
+      playTxt=document.getElementById('mpPlayTxt'),icon=document.getElementById('mpIcon'),
+      eq=document.getElementById('mpEq'),countEl=document.getElementById('mpCount');
+  if(!au||!itemsEl)return;
+  var cur=-1,lines=[],curLine=-1;
+
+  function fmt(s){s=Math.max(0,Math.floor(s||0));return ('0'+Math.floor(s/60)).slice(-2)+':'+('0'+(s%60)).slice(-2);}
+  countEl.textContent=('0'+MUSIC.length).slice(-2)+' TRACKS';
+
+  // playlist
+  MUSIC.forEach(function(m,i){
+    var d=document.createElement('div');
+    d.className='mp-item';d.setAttribute('data-i',i);
+    d.innerHTML='<img src="'+m.thumb+'" alt="'+m.title+'" loading="lazy">'
+      +'<div><div class="nm">'+m.title+'</div><div class="sub">'+m.album+' · '+m.artist+'</div></div>'
+      +'<div class="tm">'+fmt(m.dur)+'</div>';
+    d.addEventListener('click',function(){load(i,true)});
+    itemsEl.appendChild(d);
+  });
+
+  function markActive(){
+    var ns=itemsEl.children;
+    for(var i=0;i<ns.length;i++)ns[i].classList.toggle('on',i===cur);
+  }
+
+  function drawLyrics(){
+    roll.innerHTML='';lines=[];curLine=-1;
+    var L=MUSIC[cur].lyrics||[];
+    L.forEach(function(p,i){
+      var d=document.createElement('div');
+      d.className='mp-ln';d.setAttribute('data-i',i);d.textContent=p[1];
+      d.addEventListener('click',function(){au.currentTime=p[0]/1000;});
+      roll.appendChild(d);lines.push(d);
+    });
+    if(!L.length)roll.innerHTML='<div class="mp-ln">纯音乐 / 暂无歌词</div>';
+  }
+
+  function load(i,play){
+    cur=(i+MUSIC.length)%MUSIC.length;
+    var m=MUSIC[cur];
+    au.src=m.file;au.load();
+    titleEl.textContent=m.title;
+    albumEl.innerHTML='<a href="'+m.page+'" target="_blank" rel="noopener">'+m.album+'</a> · '+m.artist;
+    coverImg.src=m.cover;coverImg.alt=m.title;
+    totEl.textContent=fmt(m.dur);
+    markActive();drawLyrics();
+    syncLine(0);
+    if(play)tryPlay();
+  }
+
+  function tryPlay(){
+    var p=au.play();
+    if(p&&p.catch)p.catch(function(){});
+  }
+  function syncLine(t){
+    var ms=t*1000,idx=-1;
+    for(var i=0;i<lines.length;i++){if(MUSIC[cur].lyrics[i][0]<=ms)idx=i;else break;}
+    if(idx===curLine)return;
+    curLine=idx;
+    for(var k=0;k<lines.length;k++){
+      lines[k].classList.toggle('cur',k===idx);
+      lines[k].classList.toggle('near',k===idx+1||k===idx-1);
+    }
+    if(idx>=0&&lines[idx]){
+      var top=lines[idx].offsetTop-roll.clientHeight/2+lines[idx].offsetHeight/2;
+      roll.scrollTo({top:top,behavior:'smooth'});
+    }else if(idx<0){roll.scrollTo({top:0,behavior:'smooth'});}
+  }
+
+  function setPlaying(on){
+    playTxt.textContent=on?'PAUSE':'PLAY';
+    icon.setAttribute('d',on?'M7 4h4v16H7zM13 4h4v16h-4z':'M6 3l14 9-14 9z');
+    eq.classList.toggle('on',on);
+    cover.classList.toggle('playing',on);
+  }
+
+  au.addEventListener('play',function(){setPlaying(true)});
+  au.addEventListener('pause',function(){setPlaying(false)});
+  au.addEventListener('timeupdate',function(){
+    var t=au.currentTime,d=au.duration&&isFinite(au.duration)?au.duration:MUSIC[cur].dur;
+    nowEl.textContent=fmt(t);fill.style.width=(d?Math.min(100,t/d*100):0)+'%';
+    if(d&&Math.abs(d-MUSIC[cur].dur)>0.5)totEl.textContent=fmt(d);
+    syncLine(t);
+  });
+  au.addEventListener('loadedmetadata',function(){
+    if(au.duration&&isFinite(au.duration))totEl.textContent=fmt(au.duration);
+  });
+  au.addEventListener('ended',function(){load(cur+1,true)});
+  au.addEventListener('error',function(){
+    if(cur>=0){titleEl.textContent=MUSIC[cur].title;playTxt.textContent='PLAY';setPlaying(false);}
+  });
+
+  playBtn.addEventListener('click',function(){
+    if(cur<0){load(0,true);return;}
+    if(au.paused)tryPlay();else au.pause();
+  });
+  document.getElementById('mpStop').addEventListener('click',function(){
+    au.pause();au.currentTime=0;fill.style.width='0%';nowEl.textContent='00:00';syncLine(0);roll.scrollTo({top:0});
+  });
+  document.getElementById('mpPrev').addEventListener('click',function(){load(cur-1,true)});
+  document.getElementById('mpNext').addEventListener('click',function(){load(cur+1,true)});
+
+  function seekAt(ev){
+    if(cur<0)return;
+    var r=bar.getBoundingClientRect(),x=(ev.touches?ev.touches[0].clientX:ev.clientX)-r.left;
+    var d=au.duration&&isFinite(au.duration)?au.duration:MUSIC[cur].dur;
+    au.currentTime=Math.max(0,Math.min(1,x/r.width))*d;
+  }
+  bar.addEventListener('click',seekAt);
+  bar.addEventListener('keydown',function(e){
+    if(cur<0)return;
+    if(e.key==='ArrowRight')au.currentTime=Math.min(au.duration||MUSIC[cur].dur,au.currentTime+5);
+    if(e.key==='ArrowLeft')au.currentTime=Math.max(0,au.currentTime-5);
+  });
+
+  load(0,false);
+  // 微信/低版浏览器首次触摸时补一次播放（与 showreel 同策略）
+  var kicked=false;
+  function kick(){if(kicked)return;kicked=true;if(cur>=0&&au.paused&&au.src)tryPlay();document.removeEventListener('touchstart',kick);}
+  document.addEventListener('touchstart',kick,{passive:true});
 })();
 </script>
 </body>
